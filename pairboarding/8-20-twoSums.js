@@ -5,17 +5,16 @@ You may assume that every input has exactly one pair of indices i and j that sat
 Return the answer with the smaller index first.
 
 Example 1:
-Input:
-nums = [3,4,5,6], target = 7
+Input: nums = [3, 4, 5, 6], target = 7
 Output: [0, 1]
 Explanation: nums[0] + nums[1] == 7, so we return [0, 1].
 
 Example 2:
-Input: nums = [4,5,6], target = 10
+Input: nums = [4, 5, 6], target = 10
 Output: [0, 2]
 
 Example 3:
-Input: nums = [5,5], target = 10
+Input: nums = [5, 5], target = 10
 Output: [0,1]
 
 Constraints:
@@ -25,6 +24,8 @@ Constraints:
 */
 
 const twoSums = function (nums, target) {
+  /*
+  // sol 1
   // initialize variable for storing nums
   let arr = new Map();
 
@@ -45,8 +46,25 @@ const twoSums = function (nums, target) {
     }
     arr.set(num, i);
   }
+    */
 
-  //   return
+  // sol 2
+  let sorted = [...nums].sort((a, b) => a - b);
+  let left = 0;
+  let right = sorted.length - 1;
+
+  while (left < right) {
+    let sum = sorted[left] + sorted[right];
+    if (sum === target) {
+      let leftIndex = nums.indexOf(sorted[left]);
+      let rightIndex = nums.lastIndexOf(sorted[right]);
+      return [leftIndex, rightIndex];
+    } else if (sum < target) {
+      left++;
+    } else {
+      right--;
+    }
+  }
 };
 
 console.log(twoSums([3, 4, 5, 6], 7));
