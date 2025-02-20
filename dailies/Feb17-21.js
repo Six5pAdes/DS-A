@@ -117,11 +117,75 @@ var kSmallestPairs = function (nums1, nums2, k) {
     return pairs.slice(0, k);
 };
 
-const nums1 = [1, 7, 11], nums2 = [2, 4, 6], k = 3;
-console.log(kSmallestPairs(nums1, nums2, k)); // [[1,2],[1,4],[1,6]]
-const nums21 = [1, 1, 2], nums22 = [1, 2, 3], k2 = 2;
-console.log(kSmallestPairs(nums21, nums22, k2)); // [[1,1],[1,1]]
+// const nums1 = [1, 7, 11], nums2 = [2, 4, 6], k = 3;
+// console.log(kSmallestPairs(nums1, nums2, k)); // [[1,2],[1,4],[1,6]]
+// const nums21 = [1, 1, 2], nums22 = [1, 2, 3], k2 = 2;
+// console.log(kSmallestPairs(nums21, nums22, k2)); // [[1,1],[1,1]]
 
 // Thurs
+/*The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values.
+
+For example, for arr = [2,3,4], the median is 3.
+For example, for arr = [2,3], the median is (2 + 3) / 2 = 2.5.
+Implement the MedianFinder class:
+
+MedianFinder() initializes the MedianFinder object.
+void addNum(int num) adds the integer num from the data stream to the data structure.
+double findMedian() returns the median of all elements so far. Answers within 10-5 of the actual answer will be accepted.
+
+
+Example 1:
+Input
+["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"]
+[[], [1], [2], [], [3], []]
+Output
+[null, null, null, 1.5, null, 2.0]
+Explanation
+MedianFinder medianFinder = new MedianFinder();
+medianFinder.addNum(1);    // arr = [1]
+medianFinder.addNum(2);    // arr = [1, 2]
+medianFinder.findMedian(); // return 1.5 (i.e., (1 + 2) / 2)
+medianFinder.addNum(3);    // arr[1, 2, 3]
+medianFinder.findMedian(); // return 2.0
+*/
+
+var MedianFinder = function () {
+    this.arr = [];
+};
+
+MedianFinder.prototype.addNum = function (num) {
+    const search = n => {
+        let l = 0;
+        let r = this.arr.length;
+
+        while (l < r) {
+            const mid = Math.floor((l + r) / 2);
+            if (n > this.arr[mid]) {
+                l = mid + 1;
+            } else r = mid;
+        }
+
+        this.arr.splice(l, 0, n);
+    }
+
+    if (this.arr.length === 0) {
+        this.arr.push(num);
+    } else {
+        search(num);
+    }
+};
+
+MedianFinder.prototype.findMedian = function () {
+    const m = Math.floor(this.arr.length / 2);
+    return this.arr.length % 2 === 0 ? (this.arr[m - 1] + this.arr[m]) / 2 : this.arr[m];
+};
+
+const medianFinder = new MedianFinder();
+console.log(medianFinder.findMedian()); // null
+console.log(medianFinder.addNum(1)); // null
+console.log(medianFinder.addNum(2)); // null
+console.log(medianFinder.findMedian()); // 1.5
+console.log(medianFinder.addNum(3)); // null
+console.log(medianFinder.findMedian()); // 2.0
 
 // Fri
