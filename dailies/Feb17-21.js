@@ -123,7 +123,7 @@ var kSmallestPairs = function (nums1, nums2, k) {
 // console.log(kSmallestPairs(nums21, nums22, k2)); // [[1,1],[1,1]]
 
 // Thurs
-/*The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values.
+/* The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values.
 
 For example, for arr = [2,3,4], the median is 3.
 For example, for arr = [2,3], the median is (2 + 3) / 2 = 2.5.
@@ -180,12 +180,42 @@ MedianFinder.prototype.findMedian = function () {
     return this.arr.length % 2 === 0 ? (this.arr[m - 1] + this.arr[m]) / 2 : this.arr[m];
 };
 
-const medianFinder = new MedianFinder();
-console.log(medianFinder.findMedian()); // null
-console.log(medianFinder.addNum(1)); // null
-console.log(medianFinder.addNum(2)); // null
-console.log(medianFinder.findMedian()); // 1.5
-console.log(medianFinder.addNum(3)); // null
-console.log(medianFinder.findMedian()); // 2.0
+// const medianFinder = new MedianFinder();
+// console.log(medianFinder.findMedian()); // null
+// console.log(medianFinder.addNum(1)); // null
+// console.log(medianFinder.addNum(2)); // null
+// console.log(medianFinder.findMedian()); // 1.5
+// console.log(medianFinder.addNum(3)); // null
+// console.log(medianFinder.findMedian()); // 2.0
 
 // Fri
+/* Given two binary strings a and b, return their sum as a binary string.
+
+Example 1:
+Input: a = "11", b = "1"
+Output: "100"
+
+Example 2:
+Input: a = "1010", b = "1011"
+Output: "10101"
+*/
+
+var addBinary = function (a, b) {
+    let i = a.length - 1;
+    let j = b.length - 1;
+    let carry = 0;
+    let result = '';
+
+    while (i >= 0 || j >= 0 || carry) {
+        const sum = (i >= 0 ? parseInt(a[i--]) : 0) + (j >= 0 ? parseInt(b[j--]) : 0) + carry;
+        result = (sum % 2) + result;
+        carry = Math.floor(sum / 2);
+    }
+
+    return result;
+};
+
+const a = "11", b = "1";
+console.log(addBinary(a, b)); // "100"
+const a2 = "1010", b2 = "1011";
+console.log(addBinary(a2, b2)); // "10101"
