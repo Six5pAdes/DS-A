@@ -1,4 +1,3 @@
-// mon
 /*
  * Reverse bits of a given 32 bits unsigned integer.
  *
@@ -47,11 +46,3 @@ public class twentyfour {
         return result;
     }
 }
-
-// tues
-
-// weds
-
-// thurs
-
-// fri
