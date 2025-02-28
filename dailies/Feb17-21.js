@@ -36,6 +36,8 @@ var findKthLargest = function (nums, k) {
 // nums = [3,2,3,1,2,4,5,5,6], k = 4
 // console.log(findKthLargest(nums, k)); // 4
 
+// Time: O(n), Space: O(n)
+
 // Tues
 /* Suppose LeetCode will start its IPO soon. In order to sell a good price of its shares to Venture Capital, LeetCode would like to work on some projects to increase its capital before the IPO. Since it has limited resources, it can only finish at most k distinct projects before the IPO. Help LeetCode design the best way to maximize its total capital after finishing at most k distinct projects.
 You are given n projects where the ith project has a pure profit profits[i] and a minimum capital of capital[i] is needed to start it.
@@ -88,6 +90,8 @@ var findMaximizedCapital = function (k, w, profits, capital) {
 // const k2 = 3, w2 = 0, profits2 = [1, 2, 3], capital2 = [0, 1, 2];
 // console.log(findMaximizedCapital(k2, w2, profits2, capital2)); // 6
 
+// Time: O(n^2), Space: O(n)
+
 // Wed
 /* You are given two integer arrays nums1 and nums2 sorted in non-decreasing order and an integer k.
 Define a pair (u, v) which consists of one element from the first array and one element from the second array.
@@ -121,6 +125,8 @@ var kSmallestPairs = function (nums1, nums2, k) {
 // console.log(kSmallestPairs(nums1, nums2, k)); // [[1,2],[1,4],[1,6]]
 // const nums21 = [1, 1, 2], nums22 = [1, 2, 3], k2 = 2;
 // console.log(kSmallestPairs(nums21, nums22, k2)); // [[1,1],[1,1]]
+
+// Time: O(n^2 * log(n^2)), Space: O(n^2)
 
 // Thurs
 /* The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values.
@@ -188,6 +194,8 @@ MedianFinder.prototype.findMedian = function () {
 // console.log(medianFinder.addNum(3)); // null
 // console.log(medianFinder.findMedian()); // 2.0
 
+// Time: O(n), Space: O(n)
+
 // Fri
 /* Given two binary strings a and b, return their sum as a binary string.
 
@@ -219,3 +227,5 @@ const a = "11", b = "1";
 console.log(addBinary(a, b)); // "100"
 const a2 = "1010", b2 = "1011";
 console.log(addBinary(a2, b2)); // "10101"
+
+// Time: O(n), Space: O(1)
