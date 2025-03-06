@@ -89,14 +89,54 @@ Output: 0
 def trailingZeroes(n):
     count = 0
     while n > 0:
-        count += n // 5
         n //= 5
+        count += n
     return count
+
+# Time: O(log5n), Space: O(1)
 
 print(trailingZeroes(3))
 print(trailingZeroes(5))
 print(trailingZeroes(0))
 
 # thurs
+'''Given a non-negative integer x, return the square root of x rounded down to the nearest integer. The returned integer should be non-negative as well.
+
+You must not use any built-in exponent function or operator.
+
+For example, do not use pow(x, 0.5) in c++ or x ** 0.5 in python.
+
+
+Example 1:
+Input: x = 4
+Output: 2
+Explanation: The square root of 4 is 2, so we return 2.
+
+Example 2:
+Input: x = 8
+Output: 2
+Explanation: The square root of 8 is 2.82842..., and since we round it down to the nearest integer, 2 is returned.
+'''
+
+def sqrRt(x):
+    l, r = 0, x
+
+    while l <= r:
+        m = l + (r - l) // 2
+        s = m * m
+
+        if s == x:
+            return m
+        elif s < x:
+            l = m + 1
+        else:
+            r = m - 1
+
+    return r
+
+# Time: O(log x), Space: O(1)
+
+print(sqrRt(4))
+print(sqrRt(8))
 
 # fri
