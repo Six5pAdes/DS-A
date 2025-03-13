@@ -19,16 +19,16 @@ function maxPoints(points) {
             let slope = Infinity;
 
             if (y[0] - x[0] !== 0) {
-                slope = (y[1] - x[1]) / (y[0] - x[0])
+                slope = (y[1] - x[1]) / (y[0] - x[0]);
             }
 
             if (slopes.has(slope)) {
-                slopes.set(slope, slopes.get(slope) + 1)
+                slopes.set(slope, slopes.get(slope) + 1);
             } else {
-                slopes.set(slope, 1)
+                slopes.set(slope, 1);
             }
 
-            max = Math.max(max, slopes.get(slope))
+            max = Math.max(max, slopes.get(slope));
         }
     }
 
@@ -99,7 +99,7 @@ Total amount you can rob = 2 + 9 + 1 = 12.
 */
 
 function robber(nums) {
-    let lastRob = 0
+    let lastRob = 0;
     let totalRob = 0;
 
     for (const stole of nums) {
@@ -113,8 +113,51 @@ function robber(nums) {
 
 // Time: O(n), Space: O(1)
 
-console.log(robber([1, 2, 3, 1]))
-console.log(robber([2, 7, 9, 3, 1]))
+// console.log(robber([1, 2, 3, 1]))
+// console.log(robber([2, 7, 9, 3, 1]))
+
 // thurs
+/* Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words. Note that the same word in the dictionary may be reused multiple times in the segmentation.
+
+Example 1:
+Input: s = "leetcode", wordDict = ["leet","code"]
+Output: true
+Explanation: Return true because "leetcode" can be segmented as "leet code".
+
+Example 2:
+Input: s = "applepenapple", wordDict = ["apple","pen"]
+Output: true
+Explanation: Return true because "applepenapple" can be segmented as "apple pen apple".
+Note that you are allowed to reuse a dictionary word.
+
+Example 3:
+Input: s = "catsandog", wordDict = ["cats","dog","sand","and","cat"]
+Output: false
+*/
+
+function wordBreak(s, wordDict) {
+    const w = s.length;
+    const setting = new Set(wordDict);
+
+    const dp = new Array(w + 1).fill(false);
+    dp[0] = true;
+
+    for (let i = 1; i <= w; i++) {
+        for (let j = 0; j <= w; j++) {
+            if (dp[j] && setting.has(s.substring(j, i))) {
+                dp[i] = true;
+                break;
+            }
+        }
+    }
+
+    return dp[w];
+}
+
+// Time: O(n^2), Space: O(n)
+
+console.log(wordBreak("leetcode", ["leet", "code"]))
+console.log(wordBreak("applepenapple", ["apple", "pen"]))
+console.log(wordBreak("catsandog", ["cats", "dog", "sand", "and", "cat"]))
 
 // fri
