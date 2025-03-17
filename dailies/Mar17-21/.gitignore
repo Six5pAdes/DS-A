@@ -1,0 +1,8 @@
+target
+cargo.lock
+cargo.toml
+
+# Creating a new project: cargo new <project_name>
+# Building a project: cargo build
+# Running/compiling a project: cargo run
+# Checking a project: cargo check
