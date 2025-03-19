@@ -1,8 +1,8 @@
 fn main() {
-    let tri = vec![[2],[3,4],[6,5,7],[4,1,8,3]];
+    let tri = vec![vec![2],vec![3,4],vec![6,5,7],vec![4,1,8,3]];
     println!("{}", min_total(tri));
 
-    let angle = vec![[-10]];
+    let angle = vec![vec![-10]];
     println!("{}", min_total(angle));
 }
 
