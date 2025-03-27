@@ -127,7 +127,7 @@ Output: 0
 Explanation: In this case, no transaction is done, i.e. max profit = 0.
 '''
 
-def maxProf(prices):
+def maxProfitIII(prices):
     if not prices: return 0
 
     buy1, buy2 = float('inf'), float('inf')
@@ -143,10 +143,41 @@ def maxProf(prices):
 
 # Time: O(n), Space: O(1)
 
-print(maxProf([3,3,5,0,0,3,1,4]))
-print(maxProf([1,2,3,4,5]))
-print(maxProf([7,6,4,3,1]))
+# print(maxProfIII([3,3,5,0,0,3,1,4]))
+# print(maxProfIII([1,2,3,4,5]))
+# print(maxProfIII([7,6,4,3,1]))
 
 # thurs
+''' You are given an integer array prices where prices[i] is the price of a given stock on the ith day, and an integer k.
+Find the maximum profit you can achieve. You may complete at most k transactions: i.e. you may buy at most k times and sell at most k times.
 
+Note: You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
+
+Example 1:
+Input: k = 2, prices = [2,4,1]
+Output: 2
+Explanation: Buy on day 1 (price = 2) and sell on day 2 (price = 4), profit = 4-2 = 2.
+
+Example 2:
+Input: k = 2, prices = [3,2,6,5,0,3]
+Output: 7
+Explanation: Buy on day 2 (price = 2) and sell on day 3 (price = 6), profit = 6-2 = 4. Then buy on day 5 (price = 0) and sell on day 6 (price = 3), profit = 3-0 = 3.
+'''
+
+def maxProfitIV(k, prices):
+    if k == 0: return 0
+
+    dp = [[1000, 0] for _ in range(k + 1)]
+
+    for price in prices:
+        for i in range(1, k + 1):
+            dp[i][0] = min(dp[i][0], price - dp[i - 1][1])
+            dp[i][1] = max(dp[i][1], price - dp[i][0])
+
+    return dp[k][1]
+
+# Time: O(n * k), Space: O(k)
+
+print(maxProfitIV(2, [2,4,1]))
+print(maxProfitIV(2, [3,2,6,5,0,3]))
 # fri
