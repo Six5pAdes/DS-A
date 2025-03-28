@@ -178,6 +178,43 @@ def maxProfitIV(k, prices):
 
 # Time: O(n * k), Space: O(k)
 
-print(maxProfitIV(2, [2,4,1]))
-print(maxProfitIV(2, [3,2,6,5,0,3]))
+# print(maxProfitIV(2, [2,4,1]))
+# print(maxProfitIV(2, [3,2,6,5,0,3]))
+
 # fri
+''' Given an m x n binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.
+
+Example 1:
+Input: matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
+Output: 4
+
+Example 2:
+Input: matrix = [["0","1"],["1","0"]]
+Output: 1
+
+Example 3:
+Input: matrix = [["0"]]
+Output: 0
+'''
+
+def largestSqr(matrix):
+    if matrix is None or len(matrix) < 1: return 0
+
+    row = len(matrix)
+    col = len(matrix[0])
+    dp = [[0] * (col + 1) for _ in range(row + 1)]
+    max_side = 0
+
+    for r in range(row):
+        for c in range(col):
+            if matrix[r][c] == '1':
+                dp[r + 1][c + 1] = min(dp[r][c], dp[r + 1][c], dp[r][c + 1]) + 1
+                max_side = max(max_side, dp[r + 1][c + 1])
+
+    return max_side * max_side
+
+# Time: O(m*n), Space: O(m*n)
+
+print(largestSqr([["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]))
+print(largestSqr([["0","1"],["1","0"]]))
+print(largestSqr([["0"]]))
