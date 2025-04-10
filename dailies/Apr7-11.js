@@ -19,6 +19,8 @@ function hasDuplicate(nums) {
     return false;
 };
 
+// Time: O(n log n), Space: O(1)/O(n)
+
 // console.log(hasDuplicate([1, 2, 3, 4]))
 // console.log(hasDuplicate([1, 2, 3, 3]))
 
@@ -43,6 +45,8 @@ function isAnagrams(s, t) {
 
     return sLetters === tLetters
 }
+
+// Time: O(n log n + m log m), Space: O(1)/O(n + m)
 
 // console.log(isAnagrams("racecar", "carrace"))
 // console.log(isAnagrams("jar", "jam"))
@@ -79,7 +83,47 @@ function twoSum(nums, target) {
     return []
 }
 
-console.log(twoSum([3, 4, 5, 6], 7))
-console.log(twoSum([4, 5, 6], 10))
-console.log(twoSum([5, 5], 10))
-console.log(twoSum([2, 4, 5, 6], 20))
+// Time: O(n^2), Space: O(1)
+
+// console.log(twoSum([3, 4, 5, 6], 7))
+// console.log(twoSum([4, 5, 6], 10))
+// console.log(twoSum([5, 5], 10))
+// console.log(twoSum([2, 4, 5, 6], 20))
+
+// thurs
+/* Given an array of strings strs,
+group all anagrams together into sublists. You may return the output in any order.
+An anagram is a string that contains the exact same characters as another string, but the order of the characters can be different.
+
+Example 1:
+Input: strs = ["act","pots","tops","cat","stop","hat"]
+Output: [["hat"],["act", "cat"],["stop", "pots", "tops"]]
+
+Example 2:
+Input: strs = ["x"]
+Output: [["x"]]
+
+Example 3:
+Input: strs = [""]
+Output: [[""]]
+*/
+
+function grpAnagrams(strs) {
+    let res = {}
+    for (let s of strs) {
+        const sorted = s.split('').sort().join()
+
+        if (!res[sorted]) {
+            res[sorted] = []
+        }
+        res[sorted].push(s)
+    }
+
+    return Object.values(res)
+}
+
+// Time: O(m * n log n), Space: O(m * n)
+
+console.log(grpAnagrams(["act", "pots", "tops", "cat", "stop", "hat"]))
+console.log(grpAnagrams(["x"]))
+console.log(grpAnagrams([""]))
