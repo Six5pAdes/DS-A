@@ -124,6 +124,35 @@ function grpAnagrams(strs) {
 
 // Time: O(m * n log n), Space: O(m * n)
 
-console.log(grpAnagrams(["act", "pots", "tops", "cat", "stop", "hat"]))
-console.log(grpAnagrams(["x"]))
-console.log(grpAnagrams([""]))
+// console.log(grpAnagrams(["act", "pots", "tops", "cat", "stop", "hat"]))
+// console.log(grpAnagrams(["x"]))
+// console.log(grpAnagrams([""]))
+
+// fri
+/* Given an integer array nums and an integer k, return the k most frequent elements within the array.
+The test cases are generated such that the answer is always unique.
+You may return the output in any order.
+
+Example 1:
+Input: nums = [1,2,2,3,3,3], k = 2
+Output: [2,3]
+
+Example 2:
+Input: nums = [7,7], k = 1
+Output: [7]
+*/
+
+function frequentKs(nums, k) {
+    let res = {}
+    for (let n of nums) {
+        res[n] = (res[n] || 0) + 1
+    }
+
+    let sorted = Object.entries(res).sort((a, b) => b[1] - a[1])
+    return sorted.slice(0, k).map(([n]) => n)
+}
+
+// Time: O(n log n), Space: O(n)
+
+console.log(frequentKs([1, 2, 2, 3, 3, 3], 2))
+console.log(frequentKs([7, 7], 1))
