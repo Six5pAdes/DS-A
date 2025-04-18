@@ -190,7 +190,34 @@ def consecutive(nums):
 
 # Time: O(n), Space: O(n)
 
-print(consecutive([2,20,4,10,3,4,5]))
-print(consecutive([0,3,2,5,4,6,1,1]))
+# print(consecutive([2,20,4,10,3,4,5]))
+# print(consecutive([0,3,2,5,4,6,1,1]))
 
 # fri
+'''Given a string s, return true if it is a palindrome, otherwise return false.
+A palindrome is a string that reads the same forward and backward. It is also case-insensitive and ignores all non-alphanumeric characters.
+
+Example 1:
+Input: s = "Was it a car or a cat I saw?"
+Output: true
+Explanation: After considering only alphanumerical characters,
+ we have "wasitacaroracatisaw", which is a palindrome.
+
+Example 2:
+Input: s = "tab a cat"
+Output: false
+Explanation: "tabacat" is not a palindrome.
+'''
+
+def validPalindrome(s):
+    newStr = ''
+
+    for i in s:
+        if i.isalnum():
+            newStr += i.lower()
+    return newStr == newStr[::-1]
+
+# Time: O(n), Space: O(n)
+
+print(validPalindrome("Was it a car or a cat I saw?"))
+print(validPalindrome("tab a cat"))
