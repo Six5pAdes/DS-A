@@ -129,9 +129,42 @@ function maxArea(heights) {
 
 // Time: O(n), Space: O(1)
 
-console.log(maxArea([1, 7, 2, 5, 4, 7, 3, 6]))
-console.log(maxArea([2, 2, 2]))
+// console.log(maxArea([1, 7, 2, 5, 4, 7, 3, 6]))
+// console.log(maxArea([2, 2, 2]))
 
 // thurs
+/* You are given an array non-negative integers height which represent an elevation map. Each value height[i] represents the height of a bar, which has a width of 1.
+Return the maximum area of water that can be trapped between the bars.
 
+Example 1:
+Input: height = [0,2,0,3,1,0,1,3,2,1]
+Output: 9
+*/
+
+function waterTrapped(height) {
+    if (!height || height.length === 0) return 0
+
+    let l = 0
+    let r = height.length - 1
+    let lMax = height[l], rMax = height[r]
+    let res = 0;
+
+    while (l < r) {
+        if (lMax < rMax) {
+            l++
+            lMax = Math.max(lMax, height[l])
+            res += lMax - height[l]
+        } else {
+            r--
+            rMax = Math.max(rMax, height[r])
+            res += rMax - height[r]
+        }
+    }
+
+    return res
+}
+
+// Time: O(n), Space: O(n)
+
+console.log(waterTrapped([0, 2, 0, 3, 1, 0, 1, 3, 2, 1]))
 // fri
