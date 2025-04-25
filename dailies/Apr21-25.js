@@ -166,5 +166,41 @@ function waterTrapped(height) {
 
 // Time: O(n), Space: O(n)
 
-console.log(waterTrapped([0, 2, 0, 3, 1, 0, 1, 3, 2, 1]))
+// console.log(waterTrapped([0, 2, 0, 3, 1, 0, 1, 3, 2, 1]))
+
 // fri
+/* You are given an integer array prices where prices[i] is the price of ItCoin on the ith day.
+You may choose a single day to buy one ItCoin and choose a different day in the future to sell it.
+Return the maximum profit you can achieve. You may choose to not make any transactions, in which case the profit would be 0.
+
+Example 1:
+Input: prices = [10,1,5,6,7,1]
+Output: 6
+Explanation: Buy prices[1] and sell prices[4], profit = 7 - 1 = 6.
+
+Example 2:
+Input: prices = [10,8,7,5,2]
+Output: 0
+Explanation: No profitable transactions can be made, thus the max profit is 0.
+*/
+
+function maxProfit(prices) {
+    let l = 0, r = 1
+    let max = 0
+
+    while (r < prices.length) {
+        if (prices[l] < prices[r]) {
+            let profit = prices[r] - prices[l]
+            max = Math.max(max, profit)
+        } else l = r
+
+        r++
+    }
+
+    return max
+}
+
+// Time: O(n), Space: O(1)
+
+console.log(maxProfit([10, 1, 5, 6, 7, 1]))
+console.log(maxProfit([10, 8, 7, 5, 2]))
