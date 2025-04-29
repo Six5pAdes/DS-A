@@ -28,18 +28,44 @@ def longestSubstr(s):
 
 # time: O(n), space: O(m)
 
-print(longestSubstr("zxyzxyz"))
-print(longestSubstr("xxxx"))
+# print(longestSubstr("zxyzxyz"))
+# print(longestSubstr("xxxx"))
 
 # tues
-''''''
+''' You are given a string s consisting of only uppercase english characters and an integer k. You can choose up to k characters of the string and replace them with any other uppercase English character.
+After performing at most k replacements, return the length of the longest substring which contains only one distinct character.
 
-def ____():
-    return
+Example 1:
+Input: s = "XYYX", k = 2
+Output: 4
+Explanation: Either replace the 'X's with 'Y's, or replace the 'Y's with 'X's.
 
-# time: O(), space: O()
+Example 2:
+Input: s = "AAABABB", k = 1
+Output: 5
+'''
 
-# print()
+def charReplace(s, k):
+    count = {}
+    res = 0
+    l = 0
+    maxL = 0
+
+    for r in range (len(s)):
+        count[s[r]] = 1 + count.get(s[r], 0)
+        maxL = max(maxL, count[s[r]])
+
+        while (r - l + 1) - maxL > k:
+            count[s[l]] -= 1
+            l += 1
+        res = max(res, r - l + 1)
+
+    return res
+
+# time: O(n), space: O(m)
+
+print(charReplace("XYYX", 2))
+print(charReplace("AAABABB", 1))
 
 # weds
 ''''''
