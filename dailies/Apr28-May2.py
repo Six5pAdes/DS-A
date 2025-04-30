@@ -64,18 +64,61 @@ def charReplace(s, k):
 
 # time: O(n), space: O(m)
 
-print(charReplace("XYYX", 2))
-print(charReplace("AAABABB", 1))
+# print(charReplace("XYYX", 2))
+# print(charReplace("AAABABB", 1))
 
 # weds
-''''''
+''' You are given two strings s1 and s2.
+Return true if s2 contains a permutation of s1, or false otherwise. That means if a permutation of s1 exists as a substring of s2, then return true.
+Both strings only contain lowercase letters.
 
-def ____():
-    return
+Example 1:
+Input: s1 = "abc", s2 = "lecabee"
+Output: true
+Explanation: The substring "cab" is a permutation of "abc" and is present in "lecabee".
 
-# time: O(), space: O()
+Example 2:
+Input: s1 = "abc", s2 = "lecaabee"
+Output: false
+'''
 
-# print()
+def strPermute(s1, s2):
+    if len(s1) > len(s2): return False
+
+    s1Count, s2Count = [0] * 26, [0] * 26
+    for r in range(len(s1)):
+        s1Count[ord(s1[r]) - ord('a')] += 1
+        s2Count[ord(s2[r]) - ord('a')] += 1
+
+    matches = 0
+    for i in range(26):
+        matches += (1 if s1Count[i] == s2Count[i] else 0)
+
+    l = 0
+    for x in range(len(s1), len(s2)):
+        if matches == 26: return True
+
+        idx = ord(s2[x]) - ord('a')
+        s2Count[idx] += 1
+        if s1Count[idx] == s2Count[idx]:
+            matches += 1
+        elif s1Count[idx] + 1 == s2Count[idx]:
+            matches -= 1
+
+        idx = ord(s2[l]) - ord('a')
+        s2Count[idx] -= 1
+        if s1Count[idx] == s2Count[idx]:
+            matches += 1
+        elif s1Count[idx] - 1 == s2Count[idx]:
+            matches -= 1
+        l += 1
+
+    return matches == 26
+
+# time: O(n), space: O(1)
+
+print(strPermute("abc", "lecabee"))
+print(strPermute("abc", "lecaabee"))
 
 # thurs
 ''''''
