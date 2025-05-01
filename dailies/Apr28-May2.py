@@ -117,18 +117,64 @@ def strPermute(s1, s2):
 
 # time: O(n), space: O(1)
 
-print(strPermute("abc", "lecabee"))
-print(strPermute("abc", "lecaabee"))
+# print(strPermute("abc", "lecabee"))
+# print(strPermute("abc", "lecaabee"))
 
 # thurs
-''''''
+''' Given two strings s and t, return the shortest substring of s such that every character in t, including duplicates, is present in the substring. If such a substring does not exist, return an empty string "".
+You may assume that the correct output is always unique.
 
-def ____():
-    return
+Example 1:
+Input: s = "OUZODYXAZV", t = "XYZ"
+Output: "YXAZ"
+Explanation: "YXAZ" is the shortest substring that includes "X", "Y", and "Z" from string t.
 
-# time: O(), space: O()
+Example 2:
+Input: s = "xyz", t = "xyz"
+Output: "xyz"
 
-# print()
+Example 3:
+Input: s = "x", t = "xy"
+Output: ""
+'''
+
+def minSubstr(s, t):
+    if t == "": return "0"
+
+    counted, window = {}, {}
+
+    for c in t:
+        counted[c] = 1 + counted.get(c, 0)
+
+    has, need = 0, len(counted)
+    res, resLen = [-1, -1], float("infinity")
+    l = 0
+
+    for r in range(len(s)):
+        c = s[r]
+        window[c] = 1 + window.get(c, 0)
+
+        if c in counted and window[c] == counted[c]:
+            has += 1
+
+        while has == need:
+            if (r - l + 1) < resLen:
+                res = [l, r]
+                resLen = r - l + 1
+
+            window[s[l]] -= 1
+            if s[l] in counted and window[s[l]] < counted[s[l]]:
+                has -= 1
+            l += 1
+
+    l, r = res
+    return s[l : r + 1] if resLen != float("infinity") else "0"
+
+# time: O(n), space: O(m)
+
+print(minSubstr("OUZODYXAZV", "XYZ"))
+print(minSubstr("xyz", "xyz"))
+print(minSubstr("x", "xy"))
 
 # fri
 ''''''
