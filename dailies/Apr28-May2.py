@@ -172,16 +172,42 @@ def minSubstr(s, t):
 
 # time: O(n), space: O(m)
 
-print(minSubstr("OUZODYXAZV", "XYZ"))
-print(minSubstr("xyz", "xyz"))
-print(minSubstr("x", "xy"))
+# print(minSubstr("OUZODYXAZV", "XYZ"))
+# print(minSubstr("xyz", "xyz"))
+# print(minSubstr("x", "xy"))
 
+import heapq
 # fri
-''''''
+''' You are given an array of integers nums and an integer k. There is a sliding window of size k that starts at the left edge of the array. The window slides one position to the right until it reaches the right edge of the array.
+Return a list that contains the maximum element in the window at each step.
 
-def ____():
-    return
+Example 1:
+Input: nums = [1,2,1,0,4,2,6], k = 3
+Output: [2,2,4,4,6]
 
-# time: O(), space: O()
+Explanation:
+Window position            Max
+---------------           -----
+[1  2  1] 0  4  2  6        2
+ 1 [2  1  0] 4  2  6        2
+ 1  2 [1  0  4] 2  6        4
+ 1  2  1 [0  4  2] 6        4
+ 1  2  1  0 [4  2  6]       6
+ '''
 
-# print()
+def maxSlide(nums, k):
+    heap = []
+    output = []
+
+    for i in range(len(nums)):
+        heapq.heappush(heap, (-nums[i], i))
+        if i >= k - 1:
+            while heap[0][1] <= i - k:
+                heapq.heappop(heap)
+            output.append(-heap[0][0])
+
+    return output
+
+# time: O(nlogn), space: O(n)
+
+print(maxSlide([1,2,1,0,4,2,6], 3))
