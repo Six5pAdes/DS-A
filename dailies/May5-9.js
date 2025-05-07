@@ -115,17 +115,47 @@ minStack.getMin(); // return 0
 minStack.pop();
 minStack.top();    // return 2
 minStack.getMin(); // return 1
-console.log(minStack)
+// console.log(minStack)
 
 // weds
-/*
+/* You are given an array of strings tokens that represents a valid arithmetic expression in Reverse Polish Notation.
+Return the integer that represents the evaluation of the expression.
+
+The operands may be integers or the results of other operations.
+The operators include '+', '-', '*', and '/'.
+Assume that division between integers always truncates toward zero.
+
+Example 1:
+Input: tokens = ["1","2","+","3","*","4","-"]
+Output: 5
+Explanation: ((1 + 2) * 3) - 4 = 5
 */
 
-function ____() { }
+function revPolNot(tokens) {
+    const stack = []
 
-// Time: O(), Space: O()
+    for (const t of tokens) {
+        if (t === '+') {
+            stack.push(stack.pop() + stack.pop())
+        } else if (t === '-') {
+            const a = stack.pop()
+            const b = stack.pop()
+            stack.push(b - a)
+        } else if (t === '*') {
+            stack.push(stack.pop() * stack.pop())
+        } else if (t === '/') {
+            const a = stack.pop()
+            const b = stack.pop()
+            stack.push(Math.trunc(b / a))
+        } else stack.push(parseInt(t))
+    }
 
-// console.log()
+    return stack.pop()
+}
+
+// Time: O(n), Space: O(n)
+
+console.log(revPolNot(["1", "2", "+", "3", "*", "4", "-"]))
 
 // thurs
 /*
