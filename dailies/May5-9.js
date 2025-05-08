@@ -155,17 +155,42 @@ function revPolNot(tokens) {
 
 // Time: O(n), Space: O(n)
 
-console.log(revPolNot(["1", "2", "+", "3", "*", "4", "-"]))
+// console.log(revPolNot(["1", "2", "+", "3", "*", "4", "-"]))
 
 // thurs
-/*
+/* You are given an integer n. Return all well-formed parentheses strings that you can generate with n pairs of parentheses.
+
+Example 1:
+Input: n = 1
+Output: ["()"]
+
+Example 2:
+Input: n = 3
+Output: ["((()))","(()())","(())()","()(())","()()()"]
+You may return the answer in any order.
 */
 
-function ____() { }
+function parentStr(n) {
+    const res = Array.from({ length: n + 1 }, () => [])
+    res[0] = [""]
 
-// Time: O(), Space: O()
+    for (let k = 0; k <= n; k++) {
+        for (let i = 0; i < k; i++) {
+            for (const left of res[i]) {
+                for (const right of res[k - i - 1]) {
+                    res[k].push("(" + left + ")" + right)
+                }
+            }
+        }
+    }
 
-// console.log()
+    return res[n]
+}
+
+// Time: O(4^n / √(n)), Space: O(n)
+
+console.log(parentStr(1))
+console.log(parentStr(3))
 
 // fri
 /*
