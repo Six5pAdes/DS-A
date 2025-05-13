@@ -34,20 +34,43 @@ def carFleet(target, position, speed):
 
     return len(stack)
 
-print(carFleet(10, [1,4], [3,2]))
-print(carFleet(10, [4,1,0,7], [2,2,1,1]))
+# print(carFleet(10, [1,4], [3,2]))
+# print(carFleet(10, [4,1,0,7], [2,2,1,1]))
 
 
 # tues
+'''You are given an array of integers heights where heights[i] represents the height of a bar. The width of each bar is 1.
+Return the area of the largest rectangle that can be formed among the bars.
+Note: This chart is known as a histogram.
+
+Example 1:
+Input: heights = [7,1,7,2,2,4]
+Output: 8
+
+Example 2:
+Input: heights = [1,3,7]
+Output: 7
 '''
-'''
 
-# Time: O(), Space: O()
+# Time: O(n), Space: O(n)
 
-def ____():
-    return
+def histogram(heights):
+    n = len(heights)
+    stack = []
+    maxArea = 0
 
-print()
+    for i in range(n + 1):
+        while stack and (i == n or heights[stack[-1]] >= heights[i]):
+            height = heights[stack.pop()]
+            width = i if not stack else i - stack[-1] - 1
+
+            maxArea = max(maxArea, height * width)
+
+        stack.append(i)
+    return maxArea
+
+print(histogram([7,1,7,2,2,4]))
+print(histogram([1,3,7]))
 
 
 # weds
