@@ -69,8 +69,8 @@ def histogram(heights):
         stack.append(i)
     return maxArea
 
-print(histogram([7,1,7,2,2,4]))
-print(histogram([1,3,7]))
+# print(histogram([7,1,7,2,2,4]))
+# print(histogram([1,3,7]))
 
 
 # weds
@@ -104,20 +104,46 @@ def search(nums, target):
 
     return -1
 
-print(search([-1,0,2,4,6,8], 4))
-print(search([-1,0,2,4,6,8], 3))
+# print(search([-1,0,2,4,6,8], 4))
+# print(search([-1,0,2,4,6,8], 3))
 
 
 # thurs
+'''You are given an m x n 2-D integer array matrix and an integer target.
+Each row in matrix is sorted in non-decreasing order.
+The first integer of every row is greater than the last integer of the previous row.
+Return true if target exists within matrix or false otherwise.
+Can you write a solution that runs in O(log(m * n)) time?
+
+Example 1:
+Input: matrix = [[1,2,4,8],[10,11,12,13],[14,20,30,40]], target = 10
+Output: true
+
+Example 2:
+Input: matrix = [[1,2,4,8],[10,11,12,13],[14,20,30,40]], target = 15
+Output: false
 '''
-'''
 
-# Time: O(), Space: O()
+# Time: O(log(m * n)), Space: O(1)
 
-def ____():
-    return
+def searchMatrix(matrix, target):
+    rows, cols = len(matrix), len(matrix[0])
+    l, r = 0, rows * cols - 1
 
-print()
+    while (l <= r):
+        m = l + ((r - l) // 2)
+        row, col = m // cols, m % cols
+
+        if (target > matrix[row][col]):
+            l = m + 1
+        elif target < matrix[row][col]:
+            r = m - 1
+        else: return True
+
+    return False
+
+print(searchMatrix([[1,2,4,8],[10,11,12,13],[14,20,30,40]], 10))
+print(searchMatrix([[1,2,4,8],[10,11,12,13],[14,20,30,40]], 15))
 
 
 # fri
