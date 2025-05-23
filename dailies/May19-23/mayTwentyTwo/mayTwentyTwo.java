@@ -13,7 +13,7 @@ Output: 2.5
 Explanation: Among [1, 2, 3, 4] the median is (2 + 3) / 2 = 2.5.
 */
 
-public class mayTwentyOne {
+public class mayTwentyTwo {
     public double medianInArr(int[] nums1, int[] nums2) {
         int[] a = nums1;
         int[] b = nums2;
@@ -54,7 +54,7 @@ public class mayTwentyOne {
     }
 
     public static void main(String[] args) {
-        mayTwentyOne solution = new mayTwentyOne();
+        mayTwentyTwo solution = new mayTwentyTwo();
 
         System.out.println(solution.medianInArr(new int[][1, 2], new int[][3]));
         System.out.println(solution.medianInArr(new int[][1, 3], new int[][2, 4]));
