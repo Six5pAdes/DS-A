@@ -76,12 +76,64 @@ function cycling(head) {
   return false;
 }
 
-console.log(cycling([1, 2, 3, 4]));
-console.log(cycling([1, 2]));
+// console.log(cycling([1, 2, 3, 4]));
+// console.log(cycling([1, 2]));
 
 // Time: O(n), Space: O(1)
 
 // weds
+/* You are given the head of a singly linked-list.
+The positions of a linked list of length = 7 for example, can intially be represented as:
+[0, 1, 2, 3, 4, 5, 6]
+Reorder the nodes of the linked list to be in the following order:
+[0, 6, 1, 5, 2, 4, 3]
+
+Notice that in the general case for a list of length = n the nodes are reordered to be in the following order:
+[0, n-1, 1, n-2, 2, n-3, ...]
+You may not modify the values in the list's nodes, but instead you must reorder the nodes themselves.
+
+Example 1:
+Input: head = [2,4,6,8]
+Output: [2,8,4,6]
+
+Example 2:
+Input: head = [2,4,6,8,10]
+Output: [2,10,4,8,6]
+*/
+
+function reorder(head) {
+  let before = head;
+  let after = head.next;
+  while (after !== null && after.next !== null) {
+    before = before.next;
+    after = after.next.next;
+  }
+
+  let later = before.next;
+  let prev = (before.next = null);
+  while (later !== null) {
+    const temp = later.next;
+    later.next = prev;
+    prev = later;
+    later = temp;
+  }
+
+  let front = head;
+  later = prev;
+  while (later !== null) {
+    const temp1 = front.next;
+    const temp2 = later.next;
+    front.next = later;
+    later.next = temp1;
+    front = temp1;
+    later = temp2;
+  }
+}
+
+console.log(reorder([2, 4, 6, 8]));
+console.log(reorder([2, 4, 6, 8, 6]));
+
+// time: O(n), space: O(1)
 
 // thurs
 
