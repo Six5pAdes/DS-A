@@ -130,11 +130,58 @@ function reorder(head) {
   }
 }
 
-console.log(reorder([2, 4, 6, 8]));
-console.log(reorder([2, 4, 6, 8, 6]));
+// console.log(reorder([2, 4, 6, 8]));
+// console.log(reorder([2, 4, 6, 8, 6]));
 
 // time: O(n), space: O(1)
 
 // thurs
+/* You are given the beginning of a linked list head, and an integer n.
+Remove the nth node from the end of the list and return the beginning of the list.
+
+Example 1:
+Input: head = [1,2,3,4], n = 2
+Output: [1,2,4]
+
+Example 2:
+Input: head = [5], n = 1
+Output: []
+
+Example 3:
+Input: head = [1,2], n = 2
+Output: [2]
+*/
+
+function removeNth(head, n) {
+  let nth = 0;
+  let curr = head;
+  while (curr) {
+    nth++;
+    curr = curr.next;
+  }
+
+  const removeI = nth - n;
+  if (removeI === 0) {
+    return head.next;
+  }
+
+  curr = head;
+  for (let index = 0; index < nth - 1; index++) {
+    if (index + 1 === removeI) {
+      curr.next = curr.next.next;
+      break;
+    }
+
+    curr = curr.next;
+  }
+
+  return head;
+}
+
+console.log(removeNth([1, 2, 3, 4], 2));
+console.log(removeNth([5], 1));
+console.log(removeNth([1, 2], 2));
+
+// time: O(n), space: O(1)
 
 // fri
