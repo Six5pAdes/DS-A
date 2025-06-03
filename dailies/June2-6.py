@@ -40,12 +40,45 @@ def addTwoNumbers(l1: ListNode, l2: ListNode) -> ListNode:
         l2 = l2.next if l2 else None
     return dummy.next
 
-print(addTwoNumbers([1,2,3], [4,5,6]))
-print(addTwoNumbers([9.], [9]))
+# print(addTwoNumbers([1,2,3], [4,5,6]))
+# print(addTwoNumbers([9.], [9]))
 
 # time: O(m + n), space: O(1)
 
 # tues
+'''You are given an array of integers nums containing n + 1 integers. Each integer in nums is in the range
+[1, n] inclusive.
+Every integer appears exactly once, except for one integer which appears two or more times. Return the integer that appears more than once.
+
+Example 1:
+Input: nums = [1,2,3,2,2]
+Output: 2
+
+Example 2:
+Input: nums = [1,2,3,4,4]
+Output: 4
+'''
+
+def findDuplicate(nums):
+    first, last = 0, 0
+    while True:
+        first = nums[first]
+        last = nums[nums[last]]
+        if first == last:
+            break
+
+    first2 = 0
+    while True:
+        first = nums[first]
+        first2 = nums[first2]
+        if first == first2:
+            return first
+
+
+print(findDuplicate([1,2,3,2,2]))
+print(findDuplicate([1,2,3,4,4]))
+
+# time: O(n), space: O(1)
 
 # weds
 
