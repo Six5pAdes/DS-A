@@ -126,8 +126,10 @@ class LRUCache:
 
     def insert(self, node):
         prev, nxt = self.right.prev, self.right
-        prev.next = nxt.prev = node
-        node.next, node.prev = nxt.prev
+        prev.next = node
+        nxt.prev = node
+        node.next = nxt
+        node.prev = prev
 
 
     def get(self, key: int) -> int:
@@ -155,5 +157,47 @@ class LRUCache:
 # time: O(1), space: O(n)
 
 # thurs
+'''You are given an array of k linked lists lists, where each list is sorted in ascending order.
+Return the sorted linked list that is the result of merging all of the individual linked lists.
+
+Example 1:
+Input: lists = [[1,2,4],[1,3,5],[3,6]]
+Output: [1,1,2,3,3,4,5,6]
+
+Example 2:
+Input: lists = []
+Output: []
+
+Example 3:
+Input: lists = [[]]
+Output: []
+'''
+
+def mergeKList(lists):
+    res = ListNode(0)
+    curr = res
+
+    while True:
+        minNode = -1
+        for i in range(len(lists)):
+            if not lists[i]:
+                continue
+            if minNode == -1 or lists[minNode].val > lists[i].val:
+                minNode = i
+
+        if minNode == -1:
+            break
+
+        curr.next = lists[minNode]
+        lists[minNode] = lists[minNode].next
+        curr = curr.next
+
+    return res.next
+
+print(mergeKList([[1,2,4],[1,3,5],[3,6]]))
+print(mergeKList([]))
+print(mergeKList([[]]))
+
+# time: O(n * k), space: O(1)
 
 # fri
