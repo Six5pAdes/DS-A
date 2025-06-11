@@ -75,12 +75,60 @@ function maxDepth(root) {
   return res;
 }
 
-console.log(maxDepth([1, 2, 3, null, null, 4]));
-console.log(maxDepth([]));
+// console.log(maxDepth([1, 2, 3, null, null, 4]));
+// console.log(maxDepth([]));
 
 // time: O(n), space: O(n)
 
 // weds
+/* The diameter of a binary tree is defined as the length of the longest path between any two nodes within the tree. The path does not necessarily have to pass through the root.
+The length of a path between two nodes in a binary tree is the number of edges between the nodes.
+Given the root of a binary tree root, return the diameter of the tree.
+
+Example 1:
+Input: root = [1,null,2,3,4,5]
+Output: 3
+Explanation: 3 is the length of the path [1,2,3,5] or [5,3,2,4].
+
+Example 2:
+Input: root = [1,2,3]
+Output: 2
+*/
+
+function diameter(root) {
+  if (!root) return 0;
+
+  let maxDiameter = 0;
+
+  function dfs(node) {
+    if (!node) return 0;
+
+    const leftHeight = dfs(node.left);
+    const rightHeight = dfs(node.right);
+
+    // Update max diameter
+    maxDiameter = Math.max(maxDiameter, leftHeight + rightHeight);
+
+    // Return height of current node
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
+
+  dfs(root);
+  return maxDiameter;
+}
+
+console.log(
+  diameter(
+    new TreeNode(
+      1,
+      null,
+      new TreeNode(2, new TreeNode(3), new TreeNode(4, new TreeNode(5)))
+    )
+  )
+);
+console.log(diameter(new TreeNode(1, new TreeNode(2), new TreeNode(3))));
+
+// time: O(n), space: O(n)
 
 // thurs
 
