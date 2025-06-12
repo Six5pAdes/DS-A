@@ -117,19 +117,71 @@ function diameter(root) {
   return maxDiameter;
 }
 
-console.log(
-  diameter(
-    new TreeNode(
-      1,
-      null,
-      new TreeNode(2, new TreeNode(3), new TreeNode(4, new TreeNode(5)))
-    )
-  )
-);
-console.log(diameter(new TreeNode(1, new TreeNode(2), new TreeNode(3))));
+// console.log(
+//   diameter(
+//     new TreeNode(
+//       1,
+//       null,
+//       new TreeNode(2, new TreeNode(3), new TreeNode(4, new TreeNode(5)))
+//     )
+//   )
+// );
+// console.log(diameter(new TreeNode(1, new TreeNode(2), new TreeNode(3))));
 
 // time: O(n), space: O(n)
 
 // thurs
+/* Given a binary tree, return true if it is height-balanced and false otherwise.
+A height-balanced binary tree is defined as a binary tree in which the left and right subtrees of every node differ in height by no more than 1.
+
+Example 1:
+Input: root = [1,2,3,null,null,4]
+Output: true
+
+Example 2:
+Input: root = [1,2,3,null,null,4,null,5]
+Output: false
+
+Example 3:
+Input: root = []
+Output: true
+*/
+
+function balance(root) {
+  let stack = [];
+  let node = root,
+    last = null;
+  let depth = new Map();
+
+  while (stack.length > 0 || node !== null) {
+    if (node !== null) {
+      stack.push(node);
+      node = node.left;
+    } else {
+      node = stack[stack.length - 1];
+
+      if (node.right === null || last === node.right) {
+        stack.pop();
+
+        let left = depth.get(node.left) || 0;
+        let right = depth.get(node.right) || 0;
+
+        if (Math.abs(left - right) > 1) return false;
+        depth.set(node, 1 + Math.max(left, right));
+
+        last = node;
+        node = null;
+      } else node = node.right;
+    }
+  }
+
+  return true;
+}
+
+console.loge(balance([1, 2, 3, null, null, 4]));
+console.loge(balance([1, 2, 3, null, null, 4, null, 5]));
+console.loge(balance([]));
+
+// time: O(n), space: O(n)
 
 // fri
