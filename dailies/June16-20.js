@@ -86,27 +86,67 @@ root1.right.left = new TreeNode(7);
 root1.right.right = new TreeNode(9);
 root1.left.left.right = new TreeNode(2);
 
-console.log(
-  "Test 1 - LCA of 3 and 8:",
-  lowestCommonAncestor(root1, root1.left, root1.right).val
-); // Should print 5
+// console.log(
+//   "Test 1 - LCA of 3 and 8:",
+//   lowestCommonAncestor(root1, root1.left, root1.right).val
+// ); // Should print 5
 
 // Test case 2
-console.log(
-  "Test 2 - LCA of 3 and 4:",
-  lowestCommonAncestor(root1, root1.left, root1.left.right).val
-); // Should print 3
+// console.log(
+//   "Test 2 - LCA of 3 and 4:",
+//   lowestCommonAncestor(root1, root1.left, root1.left.right).val
+// ); // Should print 3
 
 // time: O(h), space: O(h)
 
 // weds
-/* */
+/* Given a binary tree root, return the level order traversal of it as a nested list, where each sublist contains the values of nodes at a particular level in the tree, from left to right.
 
-function ____() {}
+Example 1:
+Input: root = [1,2,3,4,5,6,7]
+Output: [[1],[2,3],[4,5,6,7]]
 
-// console.log();
+Example 2:
+Input: root = [1]
+Output: [[1]]
 
-// time: O(), space: O()
+Example 3:
+Input: root = []
+Output: []
+*/
+
+function levelOrder(root) {
+  let res = [];
+  if (!root) return res;
+
+  const q = new Queue();
+  q.push(root);
+
+  while (!q.isEmpty()) {
+    let level = [];
+
+    for (let i = q.size(); i > 0; i--) {
+      let node = q.pop();
+      if (node !== null) {
+        level.push(node.val);
+        q.push(node.left);
+        q.push(node.right);
+      }
+    }
+
+    if (level.length > 0) {
+      res.push(level);
+    }
+  }
+
+  return res;
+}
+
+console.log(levelOrder([1, 2, 3, 4, 5, 6, 7]));
+console.log(levelOrder([1]));
+console.log(levelOrder([]));
+
+// time: O(n), space: O(n)
 
 // thurs
 /* */
