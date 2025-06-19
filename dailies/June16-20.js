@@ -142,20 +142,53 @@ function levelOrder(root) {
   return res;
 }
 
-console.log(levelOrder([1, 2, 3, 4, 5, 6, 7]));
-console.log(levelOrder([1]));
-console.log(levelOrder([]));
+// console.log(levelOrder([1, 2, 3, 4, 5, 6, 7]));
+// console.log(levelOrder([1]));
+// console.log(levelOrder([]));
 
 // time: O(n), space: O(n)
 
 // thurs
-/* */
+/* You are given the root of a binary tree. Return only the values of the nodes that are visible from the right side of the tree, ordered from top to bottom.
 
-function ____() {}
+Example 1:
+Input: root = [1,2,3]
+Output: [1,3]
 
-// console.log();
+Example 2:
+Input: root = [1,2,3,4,5,6,7]
+Output: [1,3,7]
+*/
 
-// time: O(), space: O()
+function rightSide(root) {
+  const res = [];
+  const q = new Queue();
+
+  q.push(root);
+
+  while (!q.isEmpty()) {
+    let right = null;
+    const qLen = q.size();
+
+    for (let i = 0; i < qLen; i++) {
+      const node = q.pop();
+      if (node) {
+        right = node;
+        q.push(node.left);
+        q.push(node.right);
+      }
+    }
+
+    if (right) res.push(right.val);
+  }
+
+  return res;
+}
+
+console.log(rightSide([1, 2, 3]));
+console.log(rightSide([1, 2, 3, 4, 5, 6, 7]));
+
+// time: O(n), space: O(n)
 
 // fri
 /* */
