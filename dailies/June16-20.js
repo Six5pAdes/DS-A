@@ -185,16 +185,47 @@ function rightSide(root) {
   return res;
 }
 
-console.log(rightSide([1, 2, 3]));
-console.log(rightSide([1, 2, 3, 4, 5, 6, 7]));
+// console.log(rightSide([1, 2, 3]));
+// console.log(rightSide([1, 2, 3, 4, 5, 6, 7]));
 
 // time: O(n), space: O(n)
 
 // fri
-/* */
+/* Within a binary tree, a node x is considered good if the path from the root of the tree to the node x contains no nodes with a value greater than the value of node x
+Given the root of a binary tree root, return the number of good nodes within the tree.
 
-function ____() {}
+Example 1:
+Input: root = [2,1,1,3,null,1,5]
+Output: 3
 
-// console.log();
+Example 2:
+Input: root = [1,2,-1,3,4]
+Output: 4
+*/
 
-// time: O(), space: O()
+function goodNode(root) {
+  let res = [];
+  let q = new Queue();
+  q.push([root, -Infinity]);
+
+  while (!q.isEmpty()) {
+    let [node, maxVal] = q.pop();
+    if (node.val >= maxVal) {
+      res++;
+    }
+
+    if (node.left) {
+      q.push([node.left, Math.max(maxVal, node.val)]);
+    }
+    if (node.right) {
+      q.push([node.right, Math.max(maxVal, node.val)]);
+    }
+  }
+
+  return res;
+}
+
+console.log(goodNode([2, 1, 1, 3, null, 1, 5]));
+console.log(goodNode([1, 2, -1, 3, 4]));
+
+// time: O(n), space: O(n)
