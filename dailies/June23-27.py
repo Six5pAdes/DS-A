@@ -77,20 +77,51 @@ def kSmall(root, k):
             return curr.val
         curr = curr.right
 
-print(kSmall([2,1,3], 1))
-print(kSmall([4,3,5,2,None], 4))
+# print(kSmall([2,1,3], 1))
+# print(kSmall([4,3,5,2,None], 4))
 
 # time: O(n), O(n)
 
 # weds
-''''''
+'''You are given two integer arrays preorder and inorder.
+preorder is the preorder traversal of a binary tree
+inorder is the inorder traversal of the same tree
 
-def ____():
-    return
+Both arrays are of the same size and consist of unique values.
+Rebuild the binary tree from the preorder and inorder traversals and return its root.
 
-# print()
+Example 1:
+Input: preorder = [1,2,3,4], inorder = [2,1,3,4]
+Output: [1,2,3,null,null,null,4]
 
-# time: O(), O()
+Example 2:
+Input: preorder = [1], inorder = [1]
+Output: [1]
+'''
+
+def rebuild(preorder, inorder):
+    preDex = inDex = 0
+
+    def dfs(limit):
+        nonlocal preDex, inDex
+        if preDex >= len(preorder):
+            return None
+        if inorder[inDex] == limit:
+            inDex += 1
+            return None
+
+        root = TreeNode(preorder[preDex])
+        preDex += 1
+        root.left = dfs(root.val)
+        root.right = dfs(limit)
+
+        return root
+    return dfs(float('inf'))
+
+print(rebuild([1,2,3,4], [2,1,3,4]))
+print(rebuild([1], [1]))
+
+# time: O(n), O(n)
 
 # thurs
 ''''''
