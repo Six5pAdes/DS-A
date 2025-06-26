@@ -118,20 +118,49 @@ def rebuild(preorder, inorder):
         return root
     return dfs(float('inf'))
 
-print(rebuild([1,2,3,4], [2,1,3,4]))
-print(rebuild([1], [1]))
+# print(rebuild([1,2,3,4], [2,1,3,4]))
+# print(rebuild([1], [1]))
 
 # time: O(n), O(n)
 
 # thurs
-''''''
+'''Given the root of a non-empty binary tree, return the maximum path sum of any non-empty path.
 
-def ____():
-    return
+A path in a binary tree is a sequence of nodes where each pair of adjacent nodes has an edge connecting them. A node can not appear in the sequence more than once. The path does not necessarily need to include the root.
+The path sum of a path is the sum of the node's values in the path.
 
-# print()
+Example 1:
+Input: root = [1,2,3]
+Output: 6
+Explanation: The path is 2 -> 1 -> 3 with a sum of 2 + 1 + 3 = 6.
 
-# time: O(), O()
+Example 2:
+Input: root = [-15,10,20,null,null,15,5,-5]
+Output: 40
+Explanation: The path is 15 -> 20 -> 5 with a sum of 15 + 20 + 5 = 40.
+'''
+
+def maxPathSum(root):
+    res = [root.val]
+
+    def dfs(root):
+        if not root: return 0
+
+        leftMax = dfs(root.left)
+        rightMax = dfs(root.right)
+        leftMax = max(leftMax, 0)
+        rightMax = max(rightMax, 0)
+
+        res[0] = max(res[0], root.val + leftMax + rightMax)
+        return root.val + max(leftMax, rightMax)
+
+    dfs(root)
+    return res[0]
+
+print(maxPathSum([1,2,3]))
+print(maxPathSum([-15,10,20,None,None,15,5,-5]))
+
+# time: O(n), O(n)
 
 # fri
 ''''''
