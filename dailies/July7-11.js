@@ -165,18 +165,46 @@ class MedianFinder {
   }
 }
 
-const mf = new MedianFinder();
-mf.addNum(1);
-console.log(mf.findMedian()); // 1
-mf.addNum(3);
-console.log(mf.findMedian()); // 2
-mf.addNum(2);
-console.log(mf.findMedian()); // 2
+// const mf = new MedianFinder();
+// mf.addNum(1);
+// console.log(mf.findMedian()); // 1
+// mf.addNum(3);
+// console.log(mf.findMedian()); // 2
+// mf.addNum(2);
+// console.log(mf.findMedian()); // 2
 
 // weds
-/* */
+/* Given an array nums of unique integers, return all possible subsets of nums.
+The solution set must not contain duplicate subsets. You may return the solution in any order.
 
-// time: O(); space: O()
+Example 1:
+Input: nums = [1,2,3]
+Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+
+Example 2:
+Input: nums = [7]
+Output: [[],[7]]
+*/
+
+// time: O(n * (2^n)); space: O(n)
+
+function subset(nums) {
+  let res = [[]];
+
+  for (let num of nums) {
+    let size = res.length;
+    for (let i = 0; i < size; i++) {
+      let sb = res[i].slice();
+      sb.push(num);
+      res.push(sb);
+    }
+  }
+
+  return res;
+}
+
+console.log(subset([1, 2, 3]));
+console.log(subset([7]));
 
 // thurs
 /* */
