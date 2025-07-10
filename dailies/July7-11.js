@@ -203,13 +203,67 @@ function subset(nums) {
   return res;
 }
 
-console.log(subset([1, 2, 3]));
-console.log(subset([7]));
+// console.log(subset([1, 2, 3]));
+// console.log(subset([7]));
 
 // thurs
-/* */
+/* You are given an array of distinct integers nums and a target integer target. Your task is to return a list of all unique combinations of nums where the chosen numbers sum to target.
 
-// time: O(); space: O()
+The same number may be chosen from nums an unlimited number of times. Two combinations are the same if the frequency of each of the chosen numbers is the same, otherwise they are different.
+
+You may return the combinations in any order and the order of the numbers in each combination can be in any order.
+
+Example 1:
+Input:
+nums = [2,5,6,9]
+target = 9
+Output: [[2,2,5],[9]]
+Explanation:
+2 + 2 + 5 = 9. We use 2 twice, and 5 once.
+9 = 9. We use 9 once.
+
+Example 2:
+Input:
+nums = [3,4,5]
+target = 16
+Output: [[3,3,3,3,4],[3,3,5,5],[4,4,4,4],[3,4,4,5]]
+
+Example 3:
+Input:
+nums = [3]
+target = 5
+Output: []
+*/
+
+// time: O(2^(t/m)); space: O(t/m)
+
+function comboSum(nums, target) {
+  const res = [];
+  nums.sort((a, b) => a - b);
+
+  const dfs = (i, curr, total) => {
+    if (total === target) {
+      res.push([...curr]);
+      return;
+    }
+
+    for (let j = i; j < nums.length; j++) {
+      if (total + nums[j] > target) {
+        return;
+      }
+
+      curr.push(nums[j]);
+      dfs(j, curr, total + nums[j]);
+      curr.pop();
+    }
+  };
+
+  dfs(0, [], 0);
+  return res;
+}
+
+console.log(comboSum([2, 5, 6, 9], 9));
+console.log(comboSum([3, 4, 5], 16));
 
 // fri
 /* */
