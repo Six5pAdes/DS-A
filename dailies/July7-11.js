@@ -266,6 +266,60 @@ console.log(comboSum([2, 5, 6, 9], 9));
 console.log(comboSum([3, 4, 5], 16));
 
 // fri
-/* */
+/* You are given an array of integers candidates, which may contain duplicates, and a target integer target. Your task is to return a list of all unique combinations of candidates where the chosen numbers sum to target.
 
-// time: O(); space: O()
+Each element from candidates may be chosen at most once within a combination. The solution set must not contain duplicate combinations.
+You may return the combinations in any order and the order of the numbers in each combination can be in any order.
+
+Example 1:
+Input: candidates = [9,2,2,4,6,1,5], target = 8
+Output: [
+  [1,2,5],
+  [2,2,4],
+  [2,6]
+]
+
+Example 2:
+Input: candidates = [1,2,3,4,5], target = 7
+Output: [
+  [1,2,4],
+  [2,5],
+  [3,4]
+]
+*/
+
+// time: O(n * (2^n)); space: O(n)
+
+class Solution {
+  constructor() {
+    this.res = [];
+  }
+
+  comboSum2(candidates, target) {
+    this.res = [];
+    candidates.sort((a, b) => a - b);
+
+    const dfs = (idx, path, curr) => {
+      if (curr === target) {
+        this.res.push([...path]);
+        return;
+      }
+
+      for (let i = idx; i < candidates.length; i++) {
+        if (i > idx && candidates[i] === candidates[i - 1]) {
+          continue;
+        }
+        if (curr + candidates[i] > target) {
+          break;
+        }
+
+        path.push(candidates[i]);
+        dfs(i + 1, path, curr + candidates[i]);
+        path.pop();
+      }
+    };
+
+    dfs(0, [], 0);
+    return this.res;
+  }
+}
