@@ -134,19 +134,59 @@ def exists(board, word):
                 return True
     return False
 
-print(exists(board = [
-  ["A","B","C","D"],
-  ["S","A","A","T"],
-  ["A","C","A","E"]
-],
-word = "CAT"))
-print(exists(board = [
-  ["A","B","C","D"],
-  ["S","A","A","T"],
-  ["A","C","A","E"]
-],
-word = "BAT"))
+# print(exists(board = [
+#   ["A","B","C","D"],
+#   ["S","A","A","T"],
+#   ["A","C","A","E"]
+# ],
+# word = "CAT"))
+# print(exists(board = [
+#   ["A","B","C","D"],
+#   ["S","A","A","T"],
+#   ["A","C","A","E"]
+# ],
+# word = "BAT"))
 
 # thurs
+'''Given a string s, split s into substrings where every substring is a palindrome. Return all possible lists of palindromic substrings.
+You may return the solution in any order.
+
+Example 1:
+Input: s = "aab"
+Output: [["a","a","b"],["aa","b"]]
+
+Example 2:
+Input: s = "a"
+Output: [["a"]]
+'''
+
+# time: O(n * (2^n)), space: O(n)
+
+def partition(s):
+    n = len(s)
+    dp = [[False] * n for _ in range(n)]
+
+    for l in range(1, n + 1):
+        for i in range(n - l + 1):
+            dp[i][i + l - 1] = (s[i] == s[i + l - 1]
+            and (i + 1 > (i + l - 2) or dp[i + 1][i + l - 2]))
+
+    res, part = [], []
+
+    def dfs(i):
+        if i >= len(s):
+            res.append(part.copy())
+            return
+        for j in range(i, len(s)):
+            if dp[i][j]:
+                part.append(s[i : j + 1])
+                dfs(j + 1)
+                part.pop()
+
+    dfs(0)
+    return res
+
+print(partition("aab"))
+print(partition("a"))
 
 # fri
