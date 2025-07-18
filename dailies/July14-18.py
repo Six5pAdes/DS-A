@@ -186,7 +186,49 @@ def partition(s):
     dfs(0)
     return res
 
-print(partition("aab"))
-print(partition("a"))
+# print(partition("aab"))
+# print(partition("a"))
 
 # fri
+'''You are given a string digits made up of digits from 2 through 9 inclusive.
+Each digit (not including 1) is mapped to a set of characters as shown below:
+A digit could represent any one of the characters it maps to.
+Return all possible letter combinations that digits could represent. You may return the answer in any order.
+
+Example 1:
+Input: digits = "34"
+Output: ["dg","dh","di","eg","eh","ei","fg","fh","fi"]
+
+Example 2:
+Input: digits = ""
+Output: []
+'''
+
+# time: O(n * (4^n)), space: O(n)
+
+def letterCombo(digits):
+    if not digits: return []
+
+    res = [""]
+    numToLet = {
+        "2": "abc",
+        "3": "def",
+        "4": "ghi",
+        "5": "jkl",
+        "6": "mno",
+        "7": "pqrs",
+        "8": "tuv",
+        "9": "wxyz"
+    }
+
+    for d in digits:
+        temp = []
+        for curr in res:
+            for n in numToLet[d]:
+                temp.append(curr + n)
+
+        res = temp
+    return res
+
+print(letterCombo("34"))
+print(letterCombo(""))
