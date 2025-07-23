@@ -90,8 +90,10 @@ prefixTree.search("do");     // return true
 
 class TrieNode {
   constructor() {
-    this.children = new Map();
-    this.endOfWord = false;
+    // this.children = new Map();
+    this.children = Array(26).fill(null);
+    // this.endOfWord = false;
+    this.word = false;
   }
 }
 
@@ -141,6 +143,81 @@ class PrefixTree {
 }
 
 // weds
+/* Design a data structure that supports adding new words and searching for existing words.
+
+Implement the WordDictionary class:
+void addWord(word) Adds word to the data structure.
+bool search(word) Returns true if there is any string in the data structure that matches word or false otherwise. word may contain dots '.' where dots can be matched with any letter.
+
+Example 1:
+
+Input:
+["WordDictionary", "addWord", "day", "addWord", "bay", "addWord", "may", "search", "say", "search", "day", "search", ".ay", "search", "b.."]
+
+Output:
+[null, null, null, null, false, true, true, true]
+
+Explanation:
+WordDictionary wordDictionary = new WordDictionary();
+wordDictionary.addWord("day");
+wordDictionary.addWord("bay");
+wordDictionary.addWord("may");
+wordDictionary.search("say"); // return false
+wordDictionary.search("day"); // return true
+wordDictionary.search(".ay"); // return true
+wordDictionary.search("b.."); // return true
+ */
+
+// time: O(n), space: O(t + n)
+
+class WordDictionary {
+  constructor() {
+    this.root = new TrieNode();
+  }
+
+  getIndex(c) {
+    return c.charCodeAt(0) - "a".charCodeAt(0);
+  }
+
+  addWord(word) {
+    let curr = this.root;
+    for (let l of word) {
+      const idx = this.getIndex(l);
+      if (curr.children[idx] === null) {
+        curr.children[idx] = new TrieNode();
+      }
+
+      curr = curr.children[idx];
+    }
+
+    curr.word = true;
+  }
+
+  search(word) {
+    return this.dfs(word, 0, this.root);
+  }
+
+  dfs(word, j, root) {
+    let curr = root;
+
+    for (let i = j; i < word.length; i++) {
+      const c = word[i];
+      if (c === ".") {
+        for (const child of curr.children) {
+          if (child !== null && this.dfs(word, i + 1, child)) return true;
+        }
+
+        return false;
+      } else {
+        const idx = this.getIndex(c);
+        if (curr.children[idx] === null) return false;
+        curr = curr.children[idx];
+      }
+    }
+
+    return curr.word;
+  }
+}
 
 // thurs
 
