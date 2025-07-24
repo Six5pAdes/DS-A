@@ -90,10 +90,8 @@ prefixTree.search("do");     // return true
 
 class TrieNode {
   constructor() {
-    // this.children = new Map();
-    this.children = Array(26).fill(null);
-    // this.endOfWord = false;
-    this.word = false;
+    this.children = new Map();
+    this.endOfWord = false;
   }
 }
 
@@ -170,6 +168,13 @@ wordDictionary.search("b.."); // return true
 
 // time: O(n), space: O(t + n)
 
+class TrieNode {
+  constructor() {
+    this.children = Array(26).fill(null);
+    this.word = false;
+  }
+}
+
 class WordDictionary {
   constructor() {
     this.root = new TrieNode();
@@ -220,5 +225,118 @@ class WordDictionary {
 }
 
 // thurs
+/* Given a 2-D grid of characters board and a list of strings words, return all words that are present in the grid.
+
+For a word to be present it must be possible to form the word with a path in the board with horizontally or vertically neighboring cells. The same cell may not be used more than once in a word.
+
+Example 1:
+Input:
+board = [
+  ["a","b","c","d"],
+  ["s","a","a","t"],
+  ["a","c","k","e"],
+  ["a","c","d","n"]
+],
+words = ["bat","cat","back","backend","stack"]
+Output: ["cat","back","backend"]
+
+Example 2:
+Input:
+board = [
+  ["x","o"],
+  ["x","o"]
+],
+words = ["xoxo"]
+Output: []
+*/
+// time: O(m * n * 4 * (3^(t-1)) + s), space: O(s)
+
+class TrieNode {
+  constructor() {
+    this.children = Array(26).fill(null);
+    this.idx = -1;
+    this.refs = 0;
+  }
+
+  addWord(word, i) {
+    let curr = this;
+    curr.refs++;
+
+    for (const l of word) {
+      const idx = l.charCodeAt(0) - "a".charCodeAt(0);
+      if (curr.children[idx] === null) {
+        curr.children[idx] = new TrieNode();
+      }
+
+      curr = curr.children[idx];
+      curr.refs++;
+    }
+
+    curr.idx = i;
+  }
+}
+
+class WordSearchII {
+  findWords(board, words) {
+    const root = new TrieNode();
+
+    for (let i = 0; i < words.length; i++) {
+      root.addWord(words[i], i);
+    }
+
+    const rows = board.length,
+      cols = board[0].length;
+    const res = [];
+
+    const dfs = (r, c, node) => {
+      if (
+        r < 0 ||
+        c < 0 ||
+        r >= rows ||
+        c >= cols ||
+        board[r][c] === "*" ||
+        node.children[this.getId(board[r][c])] === null
+      ) {
+        return;
+      }
+
+      let temp = board[r][c];
+      board[r][c] = "*";
+      let prev = node;
+      node = node.children[this.getId(temp)];
+      if (node.idx !== -1) {
+        res.push(words[node.idx]);
+        node.idx = -1;
+        node.refs--;
+
+        if (node.refs === 0) {
+          prev.children[this.getId(temp)] = null;
+          node = null;
+          board[r][c] = temp;
+          return;
+        }
+      }
+
+      dfs(r + 1, c, node);
+      dfs(r - 1, c, node);
+      dfs(r, c + 1, node);
+      dfs(r, c - 1, node);
+
+      board[r][c] = temp;
+    };
+
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        dfs(r, c, root);
+      }
+    }
+
+    return Array.from(res);
+  }
+
+  getId(c) {
+    return c.charCodeAt(0) - "a".charCodeAt(0);
+  }
+}
 
 // fri
