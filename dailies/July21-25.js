@@ -56,8 +56,8 @@ function solveNQueen(n) {
   return res;
 }
 
-console.log(solveNQueen(4));
-console.log(solveNQueen(1));
+// console.log(solveNQueen(4));
+// console.log(solveNQueen(1));
 
 // tues
 /* A prefix tree (also known as a trie) is a tree data structure used to efficiently store and retrieve keys in a set of strings. Some applications of this data structure include auto-complete and spell checker systems.
@@ -90,8 +90,35 @@ prefixTree.search("do");     // return true
 
 class TrieNode {
   constructor() {
-    this.children = new Map();
-    this.endOfWord = false;
+    // tues
+    // this.children = new Map();
+    // this.endOfWord = false;
+
+    // weds
+    // this.children = Array(26).fill(null);
+    // this.word = false;
+
+    // thurs
+    this.children = Array(26).fill(null);
+    this.idx = -1;
+    this.refs = 0;
+  }
+
+  addWord(word, i) {
+    let curr = this;
+    curr.refs++;
+
+    for (const l of word) {
+      const idx = l.charCodeAt(0) - "a".charCodeAt(0);
+      if (curr.children[idx] === null) {
+        curr.children[idx] = new TrieNode();
+      }
+
+      curr = curr.children[idx];
+      curr.refs++;
+    }
+
+    curr.idx = i;
   }
 }
 
@@ -167,13 +194,6 @@ wordDictionary.search("b.."); // return true
  */
 
 // time: O(n), space: O(t + n)
-
-class TrieNode {
-  constructor() {
-    this.children = Array(26).fill(null);
-    this.word = false;
-  }
-}
 
 class WordDictionary {
   constructor() {
@@ -251,31 +271,6 @@ Output: []
 */
 // time: O(m * n * 4 * (3^(t-1)) + s), space: O(s)
 
-class TrieNode {
-  constructor() {
-    this.children = Array(26).fill(null);
-    this.idx = -1;
-    this.refs = 0;
-  }
-
-  addWord(word, i) {
-    let curr = this;
-    curr.refs++;
-
-    for (const l of word) {
-      const idx = l.charCodeAt(0) - "a".charCodeAt(0);
-      if (curr.children[idx] === null) {
-        curr.children[idx] = new TrieNode();
-      }
-
-      curr = curr.children[idx];
-      curr.refs++;
-    }
-
-    curr.idx = i;
-  }
-}
-
 class WordSearchII {
   findWords(board, words) {
     const root = new TrieNode();
@@ -340,3 +335,78 @@ class WordSearchII {
 }
 
 // fri
+/* Given a 2D grid grid where '1' represents land and '0' represents water, count and return the number of islands.
+An island is formed by connecting adjacent lands horizontally or vertically and is surrounded by water. You may assume water is surrounding the grid (i.e., all the edges are water).
+
+Example 1:
+Input: grid = [
+    ["0","1","1","1","0"],
+    ["0","1","0","1","0"],
+    ["1","1","0","0","0"],
+    ["0","0","0","0","0"]
+  ]
+Output: 1
+
+Example 2:
+Input: grid = [
+    ["1","1","0","0","1"],
+    ["1","1","0","0","1"],
+    ["0","0","1","0","0"],
+    ["0","0","0","1","1"]
+  ]
+Output: 4
+*/
+
+// time & space: O(m * n)
+
+function numIslands(grid) {
+  const directions = [
+    [1, 0],
+    [0, 1],
+    [-1, 0],
+    [0, -1],
+  ];
+  const rows = grid.length,
+    cols = grid[0].length;
+  let islands = 0;
+
+  const dfs = (r, c) => {
+    if (r < 0 || c < 0 || r >= rows || c >= cols || grid[r][c] === "0") {
+      return;
+    }
+
+    grid[r][c] = "0";
+    for (const [dr, dc] of directions) {
+      dfs(r + dr, c + dc);
+    }
+  };
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (grid[r][c] === "1") {
+        dfs(r, c);
+        islands++;
+      }
+    }
+  }
+
+  return islands;
+}
+
+console.log(
+  numIslands([
+    ["0", "1", "1", "1", "0"],
+    ["0", "1", "0", "1", "0"],
+    ["1", "1", "0", "0", "0"],
+    ["0", "0", "0", "0", "0"],
+  ])
+);
+
+console.log(
+  numIslands([
+    ["1", "1", "0", "0", "1"],
+    ["1", "1", "0", "0", "1"],
+    ["0", "0", "1", "0", "0"],
+    ["0", "0", "0", "1", "1"],
+  ])
+);
