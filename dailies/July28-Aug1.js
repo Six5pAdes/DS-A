@@ -127,11 +127,108 @@ function cloneGraph(node) {
   return neigh.get(node);
 }
 
-console.log(cloneGraph([[[2], [1, 3], [2]]]));
-console.log(cloneGraph([[]]));
-console.log(cloneGraph([]));
+// console.log(cloneGraph([[[2], [1, 3], [2]]]));
+// console.log(cloneGraph([[]]));
+// console.log(cloneGraph([]));
 
 // weds
+/* You are given a m×n 2D grid initialized with these three possible values:
+
+1. -1 - A water cell that can not be traversed.
+2. 0 - A treasure chest.
+3. INF - A land cell that can be traversed. We use the integer 2^31 - 1 = 2147483647 to represent INF.
+Fill each land cell with the distance to its nearest treasure chest. If a land cell cannot reach a treasure chest then the value should remain INF.
+
+Assume the grid can only be traversed up, down, left, or right.
+Modify the grid in-place.
+
+Example 1:
+Input: [
+  [2147483647,-1,0,2147483647],
+  [2147483647,2147483647,2147483647,-1],
+  [2147483647,-1,2147483647,-1],
+  [0,-1,2147483647,2147483647]
+]
+Output: [
+  [3,-1,0,1],
+  [2,2,1,-1],
+  [1,-1,2,-1],
+  [0,-1,3,4]
+]
+
+Example 2:
+Input: [
+  [0,-1],
+  [2147483647,2147483647]
+]
+Output: [
+  [0,-1],
+  [1,2]
+]
+  */
+
+// time & space: O(m * n)
+
+function islesAndTreasures(grid) {
+  const rows = grid.length,
+    cols = grid[0].length;
+  let q = new Queue();
+  let visit = new Set();
+
+  function addCell(r, c) {
+    if (
+      Math.min(r, c) < 0 ||
+      r === rows ||
+      c === cols ||
+      visit.has(r + "," + c) ||
+      grid[r][c] === -1
+    ) {
+      return;
+    }
+
+    visit.add(r + "," + c);
+    q.push([r, c]);
+  }
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (grid[r][c] === 0) {
+        q.push([r, c]);
+        visit.add(r + "," + c);
+      }
+    }
+  }
+
+  let dist = 0;
+  while (!q.isEmpty()) {
+    for (let i = q.size(); i > 0; i--) {
+      let [r, c] = q.pop();
+      grid[r][c] = dist;
+
+      addCell(r, c + 1);
+      addCell(r, c - 1);
+      addCell(r + 1, c);
+      addCell(r - 1, c);
+    }
+
+    dist += 1;
+  }
+}
+
+console.log(
+  islesAndTreasures([
+    [2147483647, -1, 0, 2147483647],
+    [2147483647, 2147483647, 2147483647, -1],
+    [2147483647, -1, 2147483647, -1],
+    [0, -1, 2147483647, 2147483647],
+  ])
+);
+console.log(
+  islesAndTreasures([
+    [0, -1],
+    [2147483647, 2147483647],
+  ])
+);
 
 // thurs
 
