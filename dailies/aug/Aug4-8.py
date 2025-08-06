@@ -110,10 +110,53 @@ def schedules(numCourses, prerequisites):
          return False
    return True
 
-print(schedules(2, [[0,1]]))
-print(schedules(2, [[0,1],[1,0]]))
+# print(schedules(2, [[0,1]]))
+# print(schedules(2, [[0,1],[1,0]]))
 
 # weds
+''' You are given an array prerequisites where prerequisites[i] = [a, b] indicates that you must take course b first if you want to take course a.
+For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+There are a total of numCourses courses you are required to take, labeled from 0 to numCourses - 1.
+Return a valid ordering of courses you can take to finish all courses. If there are many valid answers, return any of them. If it's not possible to finish all courses, return an empty array.
+
+Example 1:
+Input: numCourses = 3, prerequisites = [[1,0]]
+Output: [0,1,2]
+Explanation: We must ensure that course 0 is taken before course 1.
+
+Example 2:
+Input: numCourses = 3, prerequisites = [[0,1],[1,2],[2,0]]
+Output: []
+Explanation: It's impossible to finish all courses.
+'''
+
+# time & space: O(V + E)
+
+def courseOrder(numCourses, prerequisites):
+   adj = [[] for i in range(numCourses)]
+   nth = [0] * numCourses
+
+   for next, prereq in prerequisites:
+      nth[next] += 1
+      adj[prereq].append(next)
+
+   output = []
+
+   def dfs(node):
+      output.append(node)
+      nth[node] -= 1
+
+      for neighbor in adj[node]:
+         nth[neighbor] -= 1
+         if nth[neighbor] == 0: dfs(neighbor)
+
+   for i in range(numCourses):
+      if nth[i] == 0: dfs(i)
+
+   return output if len(output) == numCourses else []
+
+print(courseOrder(3, [[1,0]]))
+print(courseOrder(3, [[0,1],[1,2],[2,0]]))
 
 # thurs
 
