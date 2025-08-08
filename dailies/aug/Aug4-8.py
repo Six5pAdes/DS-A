@@ -204,6 +204,51 @@ def validTree(n, edges):
 
    return dfs(0, -1) and len(visit) == n
 
-print(validTree(5, [[0, 1], [0, 2], [0, 3], [1, 4]]))
-print(validTree(5, [[0, 1], [1, 2], [2, 3], [1, 3], [1, 4]]))
+# print(validTree(5, [[0, 1], [0, 2], [0, 3], [1, 4]]))
+# print(validTree(5, [[0, 1], [1, 2], [2, 3], [1, 3], [1, 4]]))
+
 # fri
+''' There is an undirected graph with n nodes. There is also an edges array, where edges[i] = [a, b] means that there is an edge between node a and node b in the graph.
+The nodes are numbered from 0 to n - 1.
+Return the total number of connected components in that graph.
+
+Example 1:
+Input:
+n=3
+edges=[[0,1], [0,2]]
+Output:
+1
+
+Example 2:
+Input:
+n=6
+edges=[[0,1], [1,2], [2,3], [4,5]]
+Output:
+2
+'''
+
+# time & space: O(V + E)
+
+def countComponents(n, edges):
+   adj = [[] for _ in range(n)]
+   visit = [False] * n
+   for u, v in edges:
+      adj[u].append(v)
+      adj[v].append(u)
+
+   def dfs(node):
+      for neigh in adj[node]:
+         if not visit[neigh]:
+            visit[neigh] = True
+            dfs(neigh)
+
+   res = 0
+   for node in range(n):
+      if not visit[node]:
+         visit[node] = True
+         dfs(node)
+         res += 1
+   return res
+
+print(countComponents(3, [[0,1], [0,2]]))
+print(countComponents(6, [[0,1], [1,2], [2,3], [4,5]]))
