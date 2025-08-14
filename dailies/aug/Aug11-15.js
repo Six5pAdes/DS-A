@@ -208,35 +208,94 @@ function delay(times, n, k) {
   return visit.size === n ? t : -1;
 }
 
-console.log(
-  delay(
-    [
-      [1, 2, 1],
-      [2, 3, 1],
-      [1, 4, 4],
-      [3, 4, 1],
-    ],
-    4,
-    1
-  )
-);
-console.log(
-  delay(
-    [
-      [1, 2, 1],
-      [2, 3, 1],
-    ],
-    3,
-    2
-  )
-);
+// console.log(
+//   delay(
+//     [
+//       [1, 2, 1],
+//       [2, 3, 1],
+//       [1, 4, 4],
+//       [3, 4, 1],
+//     ],
+//     4,
+//     1
+//   )
+// );
+// console.log(
+//   delay(
+//     [
+//       [1, 2, 1],
+//       [2, 3, 1],
+//     ],
+//     3,
+//     2
+//   )
+// );
 
 // thurs
-/* */
+/* You are given a list of flight tickets tickets where tickets[i] = [from_i, to_i] represent the source airport and the destination airport.
+Each from_i and to_i consists of three uppercase English letters.
+Reconstruct the itinerary in order and return it.
 
-// time: O(), space: O()
+All of the tickets belong to someone who originally departed from "JFK". Your objective is to reconstruct the flight path that this person took, assuming each ticket was used exactly once.
+If there are multiple valid flight paths, return the lexicographically smallest one.
 
-function ___() {}
+For example, the itinerary ["JFK", "SEA"] has a smaller lexical order than ["JFK", "SFO"].
+You may assume all the tickets form at least one valid flight path.
+
+Example 1:
+Input: tickets = [["BUF","HOU"],["HOU","SEA"],["JFK","BUF"]]
+Output: ["JFK","BUF","HOU","SEA"]
+
+Example 2:
+Input: tickets = [["HOU","JFK"],["SEA","JFK"],["JFK","SEA"],["JFK","HOU"]]
+Output: ["JFK","HOU","JFK","SEA","JFK"]
+Explanation: Another possible reconstruction is ["JFK","SEA","JFK","HOU","JFK"] but it is lexicographically larger.
+*/
+
+// time: O(E log E), space: O(E)
+
+function flightPath(tickets) {
+  const adj = new Map();
+
+  tickets
+    .sort()
+    .reverse()
+    .forEach(([src, dist]) => {
+      if (!adj.has(src)) adj.set(src, []);
+      adj.get(src).push(dist);
+    });
+
+  const res = [];
+  const stack = ["JFK"];
+
+  while (stack.length > 0) {
+    let curr = stack[stack.length - 1];
+
+    if (!adj.has(curr) || adj.get(curr).length === 0) {
+      res.unshift(stack.pop());
+    } else {
+      stack.push(adj.get(curr).pop());
+    }
+  }
+
+  return res;
+}
+
+console.log(
+  flightPath([
+    ["BUF", "HOU"],
+    ["HOU", "SEA"],
+    ["JFK", "BUF"],
+  ])
+);
+console.log(
+  flightPath([
+    ["HOU", "JFK"],
+    ["SEA", "JFK"],
+    ["JFK", "SEA"],
+    ["JFK", "HOU"],
+  ])
+);
 
 // fri
 /* */
