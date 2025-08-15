@@ -281,25 +281,80 @@ function flightPath(tickets) {
   return res;
 }
 
-console.log(
-  flightPath([
-    ["BUF", "HOU"],
-    ["HOU", "SEA"],
-    ["JFK", "BUF"],
-  ])
-);
-console.log(
-  flightPath([
-    ["HOU", "JFK"],
-    ["SEA", "JFK"],
-    ["JFK", "SEA"],
-    ["JFK", "HOU"],
-  ])
-);
+// console.log(
+//   flightPath([
+//     ["BUF", "HOU"],
+//     ["HOU", "SEA"],
+//     ["JFK", "BUF"],
+//   ])
+// );
+// console.log(
+//   flightPath([
+//     ["HOU", "JFK"],
+//     ["SEA", "JFK"],
+//     ["JFK", "SEA"],
+//     ["JFK", "HOU"],
+//   ])
+// );
 
 // fri
-/* */
+/* You are given a 2-D integer array points, where points[i] = [xi, yi]. Each points[i] represents a distinct point on a 2-D plane.
+The cost of connecting two points [xi, yi] and [xj, yj] is the manhattan distance between the two points, i.e. |xi - xj| + |yi - yj|.
+Return the minimum cost to connect all points together, such that there exists exactly one path between each pair of points.
 
-// time: O(), space: O()
+Example 1:
+Input: points = [[0,0],[2,2],[3,3],[2,4],[4,2]]
+Output: 10
+*/
 
-function ___() {}
+// time: O( (n^2) log n), space: O(n^2)
+
+function minCost(points) {
+  const n = points.length;
+  const adj = new Map();
+  for (let i = 0; i < n; i++) {
+    adj.set(i, []);
+  }
+
+  for (let i = 0; i < n; i++) {
+    const [x1, y1] = points[i];
+
+    for (let j = i + 1; j < n; j++) {
+      const [x2, y2] = points[j];
+      const dist = Math.abs(x1 - x2) + Math.abs(y1 - y2);
+
+      adj.get(i).push([dist, j]);
+      adj.get(j).push([dist, i]);
+    }
+  }
+
+  let res = 0;
+  const visit = new Set();
+  const minHeap = new MinPriorityQueue((entry) => entry[0]);
+  minHeap.push([0, 0]);
+
+  while (visit.size < n) {
+    const [cost, i] = minHeap.pop();
+    if (visit.has(i)) continue;
+    res += cost;
+    visit.add(i);
+
+    for (const [neighCost, neigh] of adj.get(i)) {
+      if (!visit.has(neigh)) {
+        minHeap.push([neighCost, neigh]);
+      }
+    }
+  }
+
+  return res;
+}
+
+console.log(
+  minCost([
+    [0, 0],
+    [2, 2],
+    [3, 3],
+    [2, 4],
+    [4, 2],
+  ])
+);
