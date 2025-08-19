@@ -81,27 +81,100 @@ function swimming(grid) {
   return r;
 }
 
-console.log(
-  swimming([
-    [0, 1],
-    [2, 3],
-  ])
-);
-console.log(
-  swimming([
-    [0, 1, 2, 10],
-    [9, 14, 4, 13],
-    [12, 3, 8, 15],
-    [11, 5, 7, 6],
-  ])
-);
+// console.log(
+//   swimming([
+//     [0, 1],
+//     [2, 3],
+//   ])
+// );
+// console.log(
+//   swimming([
+//     [0, 1, 2, 10],
+//     [9, 14, 4, 13],
+//     [12, 3, 8, 15],
+//     [11, 5, 7, 6],
+//   ])
+// );
 
 // tues
-/* */
+/* There is a foreign language which uses the latin alphabet, but the order among letters is not "a", "b", "c" ... "z" as in English.
+You receive a list of non-empty strings words from the dictionary, where the words are sorted lexicographically based on the rules of this new language.
+Derive the order of letters in this language. If the order is invalid, return an empty string. If there are multiple valid order of letters, return any of them.
 
-// time: O(), space: O()
+A string a is lexicographically smaller than a string b if either of the following is true:
+The first letter where they differ is smaller in a than in b.
+a is a prefix of b and a.length < b.length.
 
-function ____() {}
+Example 1:
+Input: ["z","o"]
+Output: "zo"
+Explanation:
+From "z" and "o", we know 'z' < 'o', so return "zo".
+
+Example 2:
+Input: ["hrn","hrf","er","enn","rfnn"]
+Output: "hernf"
+Explanation:
+from "hrn" and "hrf", we know 'n' < 'f'
+from "hrf" and "er", we know 'h' < 'e'
+from "er" and "enn", we know get 'r' < 'n'
+from "enn" and "rfnn" we know 'e'<'r'
+so one possible solution is "hernf"
+ */
+
+// time: O(N + V + E), space: O(V + E)
+
+function dictionary(words) {
+  const adj = {};
+  for (const word of words) {
+    for (const w of word) {
+      adj[w] = new Set();
+    }
+  }
+
+  for (let i = 0; i < words.length - 1; i++) {
+    const w1 = words[i];
+    const w2 = words[i + 1];
+    const minLen = Math.min(w1.length, w2.length);
+
+    if (w1.length > w2.length && w2.slice(0, minLen) === w1.slice(0, minLen)) {
+      return "";
+    }
+
+    for (let j = 0; j < minLen; j++) {
+      if (w1[j] !== w2[j]) {
+        adj[w1[j]].add(w2[j]);
+        break;
+      }
+    }
+  }
+
+  const visit = {};
+  const res = [];
+
+  const dfs = (char) => {
+    if (char in visit) return visit[char];
+    visit[char] = true;
+
+    for (const neigh of adj[char]) {
+      if (dfs(neigh)) return true;
+    }
+
+    visit[char] = false;
+    res.push(char);
+    return false;
+  };
+
+  for (const char in adj) {
+    if (dfs(char)) return "";
+  }
+
+  res.reverse();
+  return res.join("");
+}
+
+console.log(dictionary(["z", "o"]));
+console.log(dictionary(["hrn", "hrf", "er", "enn", "rfnn"]));
 
 // weds
 /* */
