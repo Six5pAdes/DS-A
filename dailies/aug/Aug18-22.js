@@ -225,40 +225,72 @@ function cheapest(n, flights, src, dst, k) {
   return prices[dst] === Number.MAX_SAFE_INTEGER ? -1 : prices[dst];
 }
 
-console.log(
-  cheapest(
-    4,
-    [
-      [0, 1, 200],
-      [1, 2, 100],
-      [1, 3, 300],
-      [2, 3, 100],
-    ],
-    0,
-    3,
-    1
-  )
-);
-console.log(
-  cheapest(
-    3,
-    [
-      [1, 0, 100],
-      [1, 2, 200],
-      [0, 2, 100],
-    ],
-    1,
-    2,
-    1
-  )
-);
+// console.log(
+//   cheapest(
+//     4,
+//     [
+//       [0, 1, 200],
+//       [1, 2, 100],
+//       [1, 3, 300],
+//       [2, 3, 100],
+//     ],
+//     0,
+//     3,
+//     1
+//   )
+// );
+// console.log(
+//   cheapest(
+//     3,
+//     [
+//       [1, 0, 100],
+//       [1, 2, 200],
+//       [0, 2, 100],
+//     ],
+//     1,
+//     2,
+//     1
+//   )
+// );
 
 // thurs
-/* */
+/* You are given an integer n representing the number of steps to reach the top of a staircase. You can climb with either 1 or 2 steps at a time.
+Return the number of distinct ways to climb to the top of the staircase.
 
-// time: O(), space: O()
+Example 1:
+Input: n = 2
+Output: 2
+Explanation:
+1 + 1 = 2
+2 = 2
 
-function ____() {}
+Example 2:
+Input: n = 3
+Output: 3
+Explanation:
+1 + 1 + 1 = 3
+1 + 2 = 3
+2 + 1 = 3
+*/
+
+// time & space: O(n)
+
+function climbStairs(n) {
+  if (n <= 2) return n;
+
+  let dp = new Array(n + 1).fill(0);
+  dp[1] = 1;
+  dp[2] = 2;
+
+  for (let i = 3; i <= n; i++) {
+    dp[i] = dp[i - 1] + dp[i - 2];
+  }
+
+  return dp[n];
+}
+
+console.log(climbStairs(2));
+console.log(climbStairs(3));
 
 // fri
 /* */
