@@ -73,10 +73,50 @@ function maxProd(nums) {
   return res;
 }
 
-console.log(maxProd([1, 2, -3, 4]));
-console.log(maxProd([-2, -1]));
+// console.log(maxProd([1, 2, -3, 4]));
+// console.log(maxProd([-2, -1]));
 
 // weds
+/* Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of dictionary words.
+You are allowed to reuse words in the dictionary an unlimited number of times. You may assume all dictionary words are unique.
+
+Example 1:
+Input: s = "neetcode", wordDict = ["neet","code"]
+Output: true
+Explanation: Return true because "neetcode" can be split into "neet" and "code".
+
+Example 2:
+Input: s = "applepenapple", wordDict = ["apple","pen","ape"]
+Output: true
+Explanation: Return true because "applepenapple" can be split into "apple", "pen" and "apple". Notice that we can reuse words and also not use all the words.
+
+Example 3:
+Input: s = "catsincars", wordDict = ["cats","cat","sin","in","car"]
+Output: false
+*/
+
+// time: O(n * m * t), space: O(n)
+
+function wordBreak(s, wordDict) {
+  const dp = new Array(s.length + 1).fill(false);
+  dp[s.length] = true;
+
+  for (let i = s.length - 1; i >= 0; i--) {
+    for (const word of wordDict) {
+      if (i + word.length <= s.length && s.slice(i, i + word.length) === word) {
+        dp[i] = dp[i + word.length];
+      }
+
+      if (dp[i]) break;
+    }
+  }
+
+  return dp[0];
+}
+
+console.log(wordBreak("neetcode", ["neet", "code"]));
+console.log(wordBreak("applepenapple", ["apple", "pen", "ape"]));
+console.log(wordBreak("catsincars", ["cats", "cat", "sin", "in", "car"]));
 
 // thurs
 
