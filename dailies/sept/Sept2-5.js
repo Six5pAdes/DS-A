@@ -1,4 +1,4 @@
-// mon
+// tues
 /* You are given an integer array "coins" representing coins of different denominations (e.g. 1 dollar, 5 dollars, etc) and an integer "amount" representing a target amount of money.
 Return the fewest number of coins that you need to make up the exact target amount. If it is impossible to make up the amount, return -1.
 You may assume that you have an unlimited number of each coin.
@@ -40,7 +40,7 @@ function coinChange(coins, amount) {
 // console.log(coinChange([2], 3));
 // console.log(coinChange([1], 0));
 
-// tues
+// weds
 /* Given an integer array nums, find a subarray that has the largest product within the array and return it.
 A subarray is a contiguous non-empty sequence of elements within an array.
 You can assume the output will fit into a 32-bit integer.
@@ -76,7 +76,7 @@ function maxProd(nums) {
 // console.log(maxProd([1, 2, -3, 4]));
 // console.log(maxProd([-2, -1]));
 
-// weds
+// thurs
 /* Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of dictionary words.
 You are allowed to reuse words in the dictionary an unlimited number of times. You may assume all dictionary words are unique.
 
@@ -114,10 +114,45 @@ function wordBreak(s, wordDict) {
   return dp[0];
 }
 
-console.log(wordBreak("neetcode", ["neet", "code"]));
-console.log(wordBreak("applepenapple", ["apple", "pen", "ape"]));
-console.log(wordBreak("catsincars", ["cats", "cat", "sin", "in", "car"]));
-
-// thurs
+// console.log(wordBreak("neetcode", ["neet", "code"]));
+// console.log(wordBreak("applepenapple", ["apple", "pen", "ape"]));
+// console.log(wordBreak("catsincars", ["cats", "cat", "sin", "in", "car"]));
 
 // fri
+/* Given an integer array nums, return the length of the longest strictly increasing subsequence.
+A subsequence is a sequence that can be derived from the given sequence by deleting some or no elements without changing the relative order of the remaining characters.
+For example, "cat" is a subsequence of "crabt".
+
+Example 1:
+Input: nums = [9,1,4,2,3,3,7]
+Output: 4
+Explanation: The longest increasing subsequence is [1,2,3,7], which has a length of 4.
+
+Example 2:
+Input: nums = [0,3,1,3,2,3]
+Output: 4
+ */
+
+// time & space: O(n^2)
+
+function listLen(nums) {
+  const n = nums.length;
+  const dp = Array.from({ length: n + 1 }, () => new Array(n + 1).fill(0));
+
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = i - 1; j >= -1; j--) {
+      let list = dp[i + 1][j + 1];
+
+      if (j === -1 || nums[j] < nums[i]) {
+        list = Math.max(list, 1 + dp[i + 1][i + 1]);
+      }
+
+      dp[i][j + 1] = list;
+    }
+  }
+
+  return dp[0][0];
+}
+
+console.log(listLen([9, 1, 4, 2, 3, 3, 7]));
+console.log(listLen([0, 3, 1, 3, 2, 3]));
