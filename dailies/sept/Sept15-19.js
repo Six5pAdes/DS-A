@@ -158,7 +158,50 @@ function maxProf(prices) {
   return dfs(0, true);
 }
 
-console.log(maxProf([1]));
-console.log(maxProf([1, 3, 4, 0, 4]));
+// console.log(maxProf([1]));
+// console.log(maxProf([1, 3, 4, 0, 4]));
 
 // fri
+/* You are given an integer array coins representing coins of different denominations (e.g. 1 dollar, 5 dollars, etc) and an integer amount representing a target amount of money.
+Return the number of distinct combinations that total up to amount. If it's impossible to make up the amount, return 0.
+You may assume that you have an unlimited number of each coin and that each value in coins is unique.
+
+Example 1:
+Input: amount = 4, coins = [1,2,3]
+Output: 4
+Explanation:
+1+1+1+1 = 4
+1+1+2 = 4
+2+2 = 4
+1+3 = 4
+
+Example 2:
+Input: amount = 7, coins = [2,4]
+Output: 0
+*/
+
+// time & space: O(n * a)
+
+function change(amount, coins) {
+  coins.sort((a, b) => a - b);
+  const c = coins.length;
+  const dp = Array.from({ length: c + 1 }, () => Array(amount + 1).fill(0));
+
+  for (let i = 0; i <= c; i++) {
+    dp[i][0] = 1;
+  }
+
+  for (let i = c - 1; i >= 0; i--) {
+    for (let a = 0; a <= amount; a++) {
+      if (a >= coins[i]) {
+        dp[i][a] = dp[i + 1][a];
+        dp[i][a] += dp[i][a - coins[i]];
+      }
+    }
+  }
+
+  return dp[0][amount];
+}
+
+console.log(change(4, [1, 2, 3]));
+console.log(change(7, [2, 4]));
