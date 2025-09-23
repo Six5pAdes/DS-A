@@ -31,18 +31,59 @@ def targetSum(nums, target):
 
     return dp[n][target]
 
-print(targetSum([2,2,2], 2))
+# print(targetSum([2,2,2], 2))
 
 # tues
+''' You are given three strings s1, s2, and s3. Return true if s3 is formed by interleaving s1 and s2 together or false otherwise.
+Interleaving two strings s and t is done by dividing s and t into n and m substrings respectively, where the following conditions are met
+
+|n - m| <= 1, i.e. the difference between the number of substrings of s and t is at most 1.
+s = s1 + s2 + ... + sn
+t = t1 + t2 + ... + tm
+Interleaving s and t is s1 + t1 + s2 + t2 + ... or t1 + s1 + t2 + s2 + ...
+
+You may assume that s1, s2 and s3 consist of lowercase English letters.
+
+Example 1:
+Input: s1 = "aaaa", s2 = "bbbb", s3 = "aabbbbaa"
+Output: true
+Explanation: We can split s1 into ["aa", "aa"], s2 can remain as "bbbb" and s3 is formed by interleaving ["aa", "aa"] and "bbbb".
+
+Example 2:
+Input: s1 = "", s2 = "", s3 = ""
+Output: true
+
+Example 3:
+Input: s1 = "abc", s2 = "xyz", s3 = "abxzcy"
+Output: false
+Explanation: We can't split s3 into ["ab", "xz", "cy"] as the order of characters is not maintained.
 '''
-'''
 
-# time: O()
+# time: O(n * m)
 
-# def ____:
-#     return
+def isInterleave(s1, s2, s3):
+    n, m = len(s1), len(s2)
+    if n + m != len(s3):
+        return False
 
-# print()
+    dp = [[False] * (m + 1) for _ in range(n + 1)]
+    dp[0][0] = True
+
+    for i in range(n):
+        dp[i + 1][0] = dp[i][0] and s1[i] == s3[i]
+
+    for j in range(m):
+        dp[0][j + 1] = dp[0][j] and s2[j] == s3[j]
+
+    for i in range(n):
+        for j in range(m):
+            dp[i + 1][j + 1] = (dp[i][j + 1] and s1[i] == s3[i + j + 1]) or (dp[i + 1][j] and s2[j] == s3[i + j + 1])
+
+    return dp[n][m]
+
+print(isInterleave("aaaa", "bbbb", "aabbbbaa"))
+print(isInterleave("", "", ""))
+print(isInterleave("abc", "xyz", "abxzcy"))
 
 # weds
 '''
