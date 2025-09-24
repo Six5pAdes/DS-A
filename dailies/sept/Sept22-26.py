@@ -81,20 +81,53 @@ def isInterleave(s1, s2, s3):
 
     return dp[n][m]
 
-print(isInterleave("aaaa", "bbbb", "aabbbbaa"))
-print(isInterleave("", "", ""))
-print(isInterleave("abc", "xyz", "abxzcy"))
+# print(isInterleave("aaaa", "bbbb", "aabbbbaa"))
+# print(isInterleave("", "", ""))
+# print(isInterleave("abc", "xyz", "abxzcy"))
 
 # weds
+''' You are given a 2-D grid of integers matrix, where each integer is greater than or equal to 0.
+Return the length of the longest strictly increasing path within matrix.
+From each cell within the path, you can move either horizontally or vertically. You may not move diagonally.
+
+Example 1:
+Input: matrix = [[5,5,3],[2,3,6],[1,1,1]]
+Output: 4
+Explanation: The longest increasing path is [1, 2, 3, 6] or [1, 2, 3, 5].
+
+Example 2:
+Input: matrix = [[1,2,3],[2,1,4],[7,6,5]]
+Output: 7
+Explanation: The longest increasing path is [1, 2, 3, 4, 5, 6, 7].
 '''
-'''
 
-# time: O()
+# time & space: O(m * n)
 
-# def ____:
-#     return
+def longestIncreasingPath(matrix):
+    m, n = len(matrix), len(matrix[0])
+    dp = [[0] * n for _ in range(m)]
+    directs = [[1, 0], [-1, 0], [0, 1], [0, -1]]
 
-# print()
+    def dfs(i, j):
+        if dp[i][j] != 0:
+            return dp[i][j]
+
+        dp[i][j] = 1
+        for di, dj in directs:
+            ni, nj = i + di, j + dj
+            if 0 <= ni < m and 0 <= nj < n and matrix[ni][nj] > matrix[i][j]:
+                dp[i][j] = max(dp[i][j], 1 + dfs(ni, nj))
+
+        return dp[i][j]
+
+    for i in range(m):
+        for j in range(n):
+            dfs(i, j)
+
+    return max(max(row) for row in dp)
+
+print(longestIncreasingPath([[5,5,3],[2,3,6],[1,1,1]]))
+print(longestIncreasingPath([[1,2,3],[2,1,4],[7,6,5]]))
 
 # thurs
 '''
