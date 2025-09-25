@@ -126,19 +126,51 @@ def longestIncreasingPath(matrix):
 
     return max(max(row) for row in dp)
 
-print(longestIncreasingPath([[5,5,3],[2,3,6],[1,1,1]]))
-print(longestIncreasingPath([[1,2,3],[2,1,4],[7,6,5]]))
+# print(longestIncreasingPath([[5,5,3],[2,3,6],[1,1,1]]))
+# print(longestIncreasingPath([[1,2,3],[2,1,4],[7,6,5]]))
 
 # thurs
+''' You are given two strings s and t, both consisting of english letters.
+Return the number of distinct subsequences of s which are equal to t.
+
+Example 1:
+Input: s = "caaat", t = "cat"
+Output: 3
+Explanation: There are 3 ways you can generate "cat" from s.
+(c)aa(at)
+(c)a(a)a(t)
+(ca)aa(t)
+
+Example 2:
+Input: s = "xxyxy", t = "xy"
+Output: 5
+Explanation: There are 5 ways you can generate "xy" from s.
+(x)x(y)xy
+(x)xyx(y)
+x(x)(y)xy
+x(x)yx(y)
+xxy(x)(y)
 '''
-'''
 
-# time: O()
+# time & space: O(n * m)
 
-# def ____:
-#     return
+def numDistrict(s,t):
+    m, n = len(s), len(t)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
 
-# print()
+    for i in range(m + 1):
+        dp[i][n] = 1
+
+    for i in range(m - 1, -1, -1):
+        for j in range(n - 1, -1, -1):
+            dp[i][j] = dp[i + 1][j]
+            if s[i] == t[j]:
+                dp[i][j] += dp[i + 1][j + 1]
+
+    return dp[0][0]
+
+print(numDistrict("caaat", "cat"))
+print(numDistrict("xxyxy", "xy"))
 
 # fri
 '''
