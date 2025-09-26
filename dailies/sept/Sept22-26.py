@@ -169,16 +169,48 @@ def numDistrict(s,t):
 
     return dp[0][0]
 
-print(numDistrict("caaat", "cat"))
-print(numDistrict("xxyxy", "xy"))
+# print(numDistrict("caaat", "cat"))
+# print(numDistrict("xxyxy", "xy"))
 
 # fri
+''' You are given two strings word1 and word2, each consisting of lowercase English letters.
+You are allowed to perform three operations on word1 an unlimited number of times:
+Insert a character at any position
+Delete a character at any position
+Replace a character at any position
+Return the minimum number of operations to make word1 equal word2.
+
+Example 1:
+Input: word1 = "monkeys", word2 = "money"
+Output: 2
+Explanation:
+monkeys -> monkey (remove s)
+monkey -> money (remove k)
+
+Example 2:
+Input: word1 = "neatcdee", word2 = "neetcode"
+Output: 3
 '''
-'''
 
-# time: O()
+# time & space: O(m * n)
 
-# def ____:
-#     return
+def editDistance(word1, word2):
+    m, n = len(word1), len(word2)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
 
-# print()
+    for i in range(m + 1):
+        dp[i][n] = m - i
+    for j in range(n + 1):
+        dp[m][j] = n - j
+
+    for i in range(m - 1, -1, -1):
+        for j in range(n - 1, -1, -1):
+            if word1[i] == word2[j]:
+                dp[i][j] = dp[i + 1][j + 1]
+            else:
+                dp[i][j] = min(dp[i + 1][j], dp[i][j + 1], dp[i + 1][j + 1]) + 1
+
+    return dp[0][0]
+
+print(editDistance("monkeys", "money"))
+print(editDistance("neatcdee", "neetcode"))
