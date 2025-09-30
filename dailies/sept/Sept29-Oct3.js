@@ -36,16 +36,62 @@ function maxCoins(nums) {
   return dp[1][n];
 }
 
-console.log(maxCoins([4, 2, 3, 7]));
+// console.log(maxCoins([4, 2, 3, 7]));
 
 // tues
-/* */
+/* You are given an input string s consisting of lowercase english letters, and a pattern p consisting of lowercase english letters, as well as '.', and '*' characters.
+Return true if the pattern matches the entire input string, otherwise return false.
 
-// time: O()
+'.' Matches any single character
+'*' Matches zero or more of the preceding element.
 
-function ____() {}
+Example 1:
+Input: s = "aa", p = ".b"
+Output: false
+Explanation: Regardless of which character we choose for the '.' in the pattern, we cannot match the second character in the input string.
 
-// console.log();
+Example 2:
+Input: s = "nnn", p = "n*"
+Output: true
+Explanation: '*' means zero or more of the preceding element, 'n'. We choose 'n' to repeat three times.
+
+Example 3:
+Input: s = "xyz", p = ".*z"
+Output: true
+Explanation: The pattern ".*" means zero or more of any character, so we choose ".." to match "xy" and "z" to match "z".
+*/
+
+// time & space: O(n * m)
+
+function isMatch(s, p) {
+  let n = s.length;
+  let m = p.length;
+
+  let dp = new Array(n + 1).fill(false).map(() => new Array(m + 1).fill(false));
+  dp[n][m] = true;
+
+  for (let i = n; i >= 0; i--) {
+    for (let j = m - 1; j >= 0; j--) {
+      let match = i < s.length && (s[i] === p[j] || p[j] === ".");
+
+      if (j + 1 < p.length && p[j + 1] === "*") {
+        dp[i][j] = dp[i][j + 2];
+
+        if (match) {
+          dp[i][j] = dp[i][j] || dp[i + 1][j];
+        }
+      } else if (match) {
+        dp[i][j] = dp[i + 1][j + 1];
+      }
+    }
+  }
+
+  return dp[0][0];
+}
+
+console.log(isMatch("aa", ".b"));
+console.log(isMatch("nnn", "n*"));
+console.log(isMatch("xyz", ".*z"));
 
 // weds
 /* */
