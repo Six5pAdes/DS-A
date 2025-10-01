@@ -89,18 +89,41 @@ function isMatch(s, p) {
   return dp[0][0];
 }
 
-console.log(isMatch("aa", ".b"));
-console.log(isMatch("nnn", "n*"));
-console.log(isMatch("xyz", ".*z"));
+// console.log(isMatch("aa", ".b"));
+// console.log(isMatch("nnn", "n*"));
+// console.log(isMatch("xyz", ".*z"));
 
 // weds
-/* */
+/* Given an array of integers nums, find the subarray with the largest sum and return the sum.
+A subarray is a contiguous non-empty sequence of elements within an array.
 
-// time: O()
+Example 1:
+Input: nums = [2,-3,4,-2,2,1,-1,4]
+Output: 8
+Explanation: The subarray [4,-2,2,1,-1,4] has the largest sum 8.
 
-function ____() {}
+Example 2:
+Input: nums = [-1]
+Output: -1
+*/
 
-// console.log()
+// time: O(n), space: O(1)
+
+function maxSubArray(nums) {
+  let maxSub = nums[0],
+    currSub = 0;
+
+  for (const num of nums) {
+    if (currSub < 0) currSub = 0;
+    currSub += num;
+    maxSub = Math.max(maxSub, currSub);
+  }
+
+  return maxSub;
+}
+
+console.log(maxSubArray([2, -3, 4, -2, 2, 1, -1, 4]));
+console.log(maxSubArray([-1]));
 
 // thurs
 /* */
