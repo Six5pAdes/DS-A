@@ -153,14 +153,47 @@ function canJump(nums) {
   return goal === 0;
 }
 
-console.log(canJump([1, 2, 0, 1, 0]));
-console.log(canJump([1, 2, 1, 0, 1]));
+// console.log(canJump([1, 2, 0, 1, 0]));
+// console.log(canJump([1, 2, 1, 0, 1]));
 
 // fri
-/* */
+/* You are given an array of integers nums, where nums[i] represents the maximum length of a jump towards the right from index i. For example, if you are at nums[i], you can jump to any index i + j where:
+j <= nums[i]
+i + j < nums.length
+You are initially positioned at nums[0].
+Return the minimum number of jumps to reach the last position in the array (index nums.length - 1). You may assume there is always a valid answer.
 
-// time: O()
+Example 1:
+Input: nums = [2,4,1,1,1,1]
+Output: 2
+Explanation: Jump from index 0 to index 1, then jump from index 1 to the last index.
 
-function ____() {}
+Example 2:
+Input: nums = [2,1,2,1,0]
+Output: 2
+*/
 
-// console.log()
+// time: O(n), space: O(1)
+
+function canJump2(nums) {
+  let res = 0,
+    l = 0,
+    r = 0;
+
+  while (r < nums.length - 1) {
+    let far = 0;
+
+    for (let i = l; i <= r; i++) {
+      far = Math.max(far, i + nums[i]);
+    }
+
+    l = r + 1;
+    r = far;
+    res++;
+  }
+
+  return res;
+}
+
+console.log(canJump2([2, 4, 1, 1, 1, 1]));
+console.log(canJump2([2, 1, 2, 1, 0]));
