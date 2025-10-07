@@ -46,17 +46,50 @@ function circuitComplete(gas, cost) {
   return tank >= 0 ? start : -1;
 }
 
-console.log(circuitComplete([1, 2, 3, 4], [2, 2, 4, 1]));
-console.log(circuitComplete([1, 2, 3], [2, 3, 2]));
+// console.log(circuitComplete([1, 2, 3, 4], [2, 2, 4, 1]));
+// console.log(circuitComplete([1, 2, 3], [2, 3, 2]));
 
 // tues
-/* */
+/* You are given an integer array hand where hand[i] is the value written on the ith card and an integer groupSize.
+You want to rearrange the cards into groups so that each group is of size groupSize, and card values are consecutively increasing by 1.
+Return true if it's possible to rearrange the cards in this way, otherwise, return false.
 
-// time: O()
+Example 1:
+Input: hand = [1,2,4,2,3,5,3,4], groupSize = 4
+Output: true
+Explanation: The cards can be rearranged as [1,2,3,4] and [2,3,4,5].
 
-function ____() {}
+Example 2:
+Input: hand = [1,2,3,3,4,5,6,7], groupSize = 4
+Output: false
+Explanation: The closest we can get is [1,2,3,4] and [3,5,6,7], but the cards in the second group are not consecutive.
+*/
 
-// console.log()
+// time: O(n log n), space: O(n)
+
+function isStraight(hand, groupSize) {
+  if (hand.length % groupSize !== 0) return false;
+
+  const count = {};
+  for (const card of hand) {
+    count[card] = (count[card] || 0) + 1;
+  }
+
+  hand.sort((a, b) => a - b);
+  for (const card of hand) {
+    if (count[card] > 0) {
+      for (let i = card; i < card + groupSize; i++) {
+        if (!count[i]) return false;
+        count[i] -= 1;
+      }
+    }
+  }
+
+  return true;
+}
+
+console.log(isStraight([1, 2, 4, 2, 3, 5, 3, 4], 4));
+console.log(isStraight([1, 2, 3, 3, 4, 5, 6, 7], 4));
 
 // weds
 /* */
