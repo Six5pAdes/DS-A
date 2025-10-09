@@ -127,34 +127,68 @@ function mergeTriplets(triplets, target) {
   return false;
 }
 
-console.log(
-  mergeTriplets(
-    [
-      [1, 2, 3],
-      [7, 1, 1],
-    ],
-    [7, 2, 3]
-  )
-);
-console.log(
-  mergeTriplets(
-    [
-      [2, 5, 6],
-      [1, 4, 4],
-      [5, 7, 5],
-    ],
-    [5, 4, 6]
-  )
-);
+// console.log(
+//   mergeTriplets(
+//     [
+//       [1, 2, 3],
+//       [7, 1, 1],
+//     ],
+//     [7, 2, 3]
+//   )
+// );
+// console.log(
+//   mergeTriplets(
+//     [
+//       [2, 5, 6],
+//       [1, 4, 4],
+//       [5, 7, 5],
+//     ],
+//     [5, 4, 6]
+//   )
+// );
 
 // thurs
-/* */
+/* You are given a string s consisting of lowercase english letters.
+We want to split the string into as many substrings as possible, while ensuring that each letter appears in at most one substring.
+Return a list of integers representing the size of these substrings in the order they appear in the string.
 
-// time: O()
+Example 1:
+Input: s = "xyxxyzbzbbisl"
+Output: [5, 5, 1, 1, 1]
+Explanation: The string can be split into ["xyxxy", "zbzbb", "i", "s", "l"].
 
-function ____() {}
+Example 2:
+Input: s = "abcabc"
+Output: [6]
+*/
 
-// console.log()
+// time: O(n), space: O(m)
+
+function partitionLabels(s) {
+  let lastIdx = {};
+
+  for (let i = 0; i < s.length; i++) {
+    lastIdx[s[i]] = i;
+  }
+
+  let res = [];
+  let start = 0,
+    end = 0;
+
+  for (let i = 0; i < s.length; i++) {
+    end = Math.max(end, lastIdx[s[i]]);
+
+    if (i === end) {
+      res.push(end - start + 1);
+      start = end + 1;
+    }
+  }
+
+  return res;
+}
+
+console.log(partitionLabels("xyxxyzbzbbisl"));
+console.log(partitionLabels("abcabc"));
 
 // fri
 /* */
