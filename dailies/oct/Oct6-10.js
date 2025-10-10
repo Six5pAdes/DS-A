@@ -187,14 +187,59 @@ function partitionLabels(s) {
   return res;
 }
 
-console.log(partitionLabels("xyxxyzbzbbisl"));
-console.log(partitionLabels("abcabc"));
+// console.log(partitionLabels("xyxxyzbzbbisl"));
+// console.log(partitionLabels("abcabc"));
 
 // fri
-/* */
+/* You are given a string s which contains only three types of characters: '(', ')' and '*'.
+Return true if s is valid, otherwise return false.
 
-// time: O()
+A string is valid if it follows all of the following rules:
+Every left parenthesis '(' must have a corresponding right parenthesis ')'.
+Every right parenthesis ')' must have a corresponding left parenthesis '('.
+Left parenthesis '(' must go before the corresponding right parenthesis ')'.
+A '*' could be treated as a right parenthesis ')' character or a left parenthesis '(' character, or as an empty string "".
 
-function ____() {}
+Example 1:
+Input: s = "((**)"
+Output: true
+Explanation: One of the '*' could be a ')' and the other could be an empty string.
 
-// console.log()
+Example 2:
+Input: s = "(((*)"
+Output: false
+Explanation: The string is not valid because there is an extra '(' at the beginning, regardless of the extra '*'.
+*/
+
+// time & space: O(n)
+
+function stringIsValid(s) {
+  const left = [];
+  const star = [];
+
+  for (let i = 0; i < s.length; i++) {
+    const char = s[i];
+    if (char === "(") {
+      left.push(i);
+    } else if (char === "*") {
+      star.push(i);
+    } else {
+      if (left.length === 0 && star.length === 0) {
+        return false;
+      }
+
+      if (left.length > 0) {
+        left.pop;
+      } else star.pop;
+    }
+  }
+
+  while (left.length > 0 && star.length > 0) {
+    if (left.pop() > star.pop()) return false;
+  }
+
+  return left.length === 0;
+}
+
+console.log(stringIsValid("((**)"));
+console.log(stringIsValid("(((*)"));
