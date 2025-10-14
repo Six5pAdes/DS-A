@@ -39,5 +39,78 @@ def insert(intervals, newInterval):
 
     return res
 
-print(insert([[1,3],[4,6]], [2,5]))
-print(insert([[1,2],[3,5],[9,10]], [6,7]))
+# print(insert([[1,3],[4,6]], [2,5]))
+# print(insert([[1,2],[3,5],[9,10]], [6,7]))
+
+# tues
+'''Given an array of intervals where intervals[i] = [start_i, end_i], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+You may return the answer in any order.
+Note: Intervals are non-overlapping if they have no common point. For example, [1, 2] and [3, 4] are non-overlapping, but [1, 2] and [2, 3] are overlapping.
+
+Example 1:
+Input: intervals = [[1,3],[1,5],[6,7]]
+Output: [[1,5],[6,7]]
+
+Example 2:
+Input: intervals = [[1,2],[2,3]]
+Output: [[1,3]]
+'''
+
+# time: O(n log n), space: O(n)
+
+from collections import defaultdict
+
+def merge(intervals):
+    mp = defaultdict(int)
+    for start, end in intervals:
+        mp[start] += 1
+        mp[end] -= 1
+
+    res = []
+    interval = []
+    have = 0
+
+    for i in sorted(mp):
+        if not interval:
+            interval.append(i)
+        have += mp[i]
+
+        if have == 0:
+            interval.append(i)
+            res.append(interval)
+            interval = []
+
+    return res
+
+print(merge([[1, 3], [1, 5], [6, 7]]))
+print(merge([[1, 2], [2, 3]]))
+
+# weds
+''''''
+
+# time: O()
+
+def ____():
+    return
+
+# print()
+
+# thurs
+''''''
+
+# time: O()
+
+def ____():
+    return
+
+# print()
+
+# fri
+''''''
+
+# time: O()
+
+def ____():
+    return
+
+# print()
