@@ -82,18 +82,41 @@ def merge(intervals):
 
     return res
 
-print(merge([[1, 3], [1, 5], [6, 7]]))
-print(merge([[1, 2], [2, 3]]))
+# print(merge([[1, 3], [1, 5], [6, 7]]))
+# print(merge([[1, 2], [2, 3]]))
 
 # weds
-''''''
+'''Given an array of intervals intervals where intervals[i] = [start_i, end_i], return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
+Note: Intervals are non-overlapping even if they have a common point. For example, [1, 3] and [2, 4] are overlapping, but [1, 2] and [2, 3] are non-overlapping.
 
-# time: O()
+Example 1:
+Input: intervals = [[1,2],[2,4],[1,4]]
+Output: 1
+Explanation: After [1,4] is removed, the rest of the intervals are non-overlapping.
 
-def ____():
-    return
+Example 2:
+Input: intervals = [[1,2],[2,4]]
+Output: 0
+'''
 
-# print()
+# time: O(n log n), space: O(n)
+
+def eraseOverlap(intervals):
+    intervals.sort()
+    res = 0
+    firstEnd = intervals[0][1]
+
+    for start, end in intervals[1:]:
+        if start < firstEnd:
+            res += 1
+            firstEnd = min(firstEnd, end)
+        elif start >= firstEnd:
+            firstEnd = end
+
+    return res
+
+print(eraseOverlap([[1,2],[2,4],[1,4]]))
+print(eraseOverlap([[1,2],[2,4]]))
 
 # thurs
 ''''''
