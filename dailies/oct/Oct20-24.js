@@ -44,22 +44,116 @@ function shortestInterval(intervals, queries) {
   return queries.map((q) => res[q]);
 }
 
-console.log(
-  shortestInterval(
-    [
-      [1, 3],
-      [2, 3],
-      [3, 7],
-      [6, 6],
-    ],
-    [2, 3, 1, 7, 6, 8]
-  )
-);
+// console.log(
+//   shortestInterval(
+//     [
+//       [1, 3],
+//       [2, 3],
+//       [3, 7],
+//       [6, 6],
+//     ],
+//     [2, 3, 1, 7, 6, 8]
+//   )
+// );
 
 // tues
+/* Given a square n x n matrix of integers matrix, rotate it by 90 degrees clockwise.
+You must rotate the matrix in-place. Do not allocate another 2D matrix and do the rotation.
+
+Example 1:
+Input: matrix = [
+  [1,2],
+  [3,4]
+]
+Output: [
+  [3,1],
+  [4,2]
+]
+
+Example 2:
+Input: matrix = [
+  [1,2,3],
+  [4,5,6],
+  [7,8,9]
+]
+Output: [
+  [7,4,1],
+  [8,5,2],
+  [9,6,3]
+]
+*/
+
+// time: O(n ^ 2), space: O(1)
+
+function rotate(matrix) {
+  /* let l = 0;
+  let r = matrix.length - 1;
+
+  while (l < r) {
+    for (let i = 0; i < r - l; i++) {
+      const top = l;
+      const bot = r;
+
+      const topLeft = matrix[top][l + 1];
+      matrix[top][l + i] = matrix[bot - i][l];
+      matrix[bot - i][l] = matrix[bot][r - i];
+      matrix[bot][r - i] = matrix[top + i][r];
+      matrix[top + i][r] = topLeft;
+    }
+
+    r--;
+    l++;
+  } */
+
+  matrix.reverse();
+
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = i; j < matrix[i].length; j++) {
+      [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
+    }
+  }
+}
+
+console.log(
+  rotate([
+    [1, 2],
+    [3, 4],
+  ])
+);
+console.log(
+  rotate([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+  ])
+);
 
 // weds
+/*
+ */
+
+// time: O()
+
+function ____() {}
+
+// console.log()
 
 // thurs
+/*
+ */
+
+// time: O()
+
+function ____() {}
+
+// console.log()
 
 // fri
+/*
+ */
+
+// time: O()
+
+function ____() {}
+
+// console.log()
