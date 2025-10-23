@@ -183,7 +183,7 @@ function spiralOrder(matrix) {
   return res;
 }
 
-console.log(
+/* console.log(
   spiralOrder([
     [1, 2],
     [3, 4],
@@ -203,16 +203,91 @@ console.log(
     [9, 10, 11, 12],
   ])
 );
+*/
 
 // thurs
-/*
+/* Given an m x n matrix of integers matrix, if an element is 0, set its entire row and column to 0's.
+You must update the matrix in-place.
+Follow up: Could you solve it using O(1) space?
+
+Example 1:
+Input: matrix = [
+  [0,1],
+  [1,0]
+]
+Output: [
+  [0,0],
+  [0,0]
+]
+
+Example 2:
+Input: matrix = [
+  [1,2,3],
+  [4,0,5],
+  [6,7,8]
+]
+Output: [
+  [1,0,3],
+  [0,0,0],
+  [6,0,8]
+]
  */
 
-// time: O()
+// time: O(m * n), space: O(1)
 
-function ____() {}
+function setZeroes(matrix) {
+  const row = matrix.length;
+  const col = matrix[0].length;
+  let rowZ = false;
 
-// console.log()
+  for (let r = 0; r < row; r++) {
+    for (let c = 0; c < col; c++) {
+      if (matrix[r][c] == 0) {
+        matrix[0][c] = 0;
+
+        if (r > 0) {
+          matrix[r][0] = 0;
+        } else {
+          rowZ = true;
+        }
+      }
+    }
+  }
+
+  for (let r = 1; r < row; r++) {
+    for (let c = 1; c < col; c++) {
+      if (matrix[0][c] == 0 || matrix[r][0] == 0) {
+        matrix[r][c] = 0;
+      }
+    }
+  }
+
+  if (matrix[0][0] == 0) {
+    for (let r = 0; r < row; r++) {
+      matrix[r][0] = 0;
+    }
+  }
+
+  if (rowZ) {
+    for (let c = 0; c < col; c++) {
+      matrix[0][c] = 0;
+    }
+  }
+}
+
+console.log(
+  setZeroes([
+    [0, 1],
+    [1, 0],
+  ])
+);
+console.log(
+  setZeroes([
+    [1, 2, 3],
+    [4, 0, 5],
+    [6, 7, 8],
+  ])
+);
 
 // fri
 /*
