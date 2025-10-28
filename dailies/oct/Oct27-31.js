@@ -31,17 +31,45 @@ function plusOne(digits) {
   return result;
 }
 
-console.log(plusOne([1, 2, 3, 4]));
-console.log(plusOne([9, 9, 9]));
+// console.log(plusOne([1, 2, 3, 4]));
+// console.log(plusOne([9, 9, 9]));
 
 // tues
-/* */
+/* Pow(x, n) is a mathematical function to calculate the value of x raised to the power of n (i.e., x^n).
+Given a floating-point value x and an integer value n, implement the myPow(x, n) function, which calculates x raised to the power n.
+You may not use any built-in library functions.
 
-// time: O()
+Example 1:
+Input: x = 2.00000, n = 5
+Output: 32.00000
 
-function ____() {}
+Example 2:
+Input: x = 1.10000, n = 10
+Output: 2.59374
 
-// console.log()
+Example 3:
+Input: x = 2.00000, n = -3
+Output: 0.12500
+*/
+
+// time & space: O(log n)
+
+function myPow(x, n) {
+  const helper = (x, n) => {
+    if (x === 0) return 0;
+    if (n === 0) return 1;
+
+    const res = helper(x * x, Math.floor(n / 2));
+    return n % 2 === 0 ? res : res * x;
+  };
+
+  const res = helper(x, Math.abs(n));
+  return n >= 0 ? res : 1 / res;
+}
+
+console.log(myPow(2.0, 5));
+console.log(myPow(1.1, 10));
+console.log(myPow(2.0, -3));
 
 // weds
 /* */
