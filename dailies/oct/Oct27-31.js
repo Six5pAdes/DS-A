@@ -67,18 +67,54 @@ function myPow(x, n) {
   return n >= 0 ? res : 1 / res;
 }
 
-console.log(myPow(2.0, 5));
-console.log(myPow(1.1, 10));
-console.log(myPow(2.0, -3));
+// console.log(myPow(2.0, 5));
+// console.log(myPow(1.1, 10));
+// console.log(myPow(2.0, -3));
 
 // weds
-/* */
+/* You are given two strings num1 and num2 that represent non-negative integers.
+Return the product of num1 and num2 in the form of a string.
+Assume that neither num1 nor num2 contain any leading zero, unless they are the number 0 itself.
+Note: You can not use any built-in library to convert the inputs directly into integers.
 
-// time: O()
+Example 1:
+Input: num1 = "3", num2 = "4"
+Output: "12"
 
-function ____() {}
+Example 2:
+Input: num1 = "111", num2 = "222"
+Output: "24642"
+*/
 
-// console.log()
+// time: O(m * n), space: O(m + n)
+
+function multiplyStrings(num1, num2) {
+  if (num1 === "0" || num2 === "0") return "0";
+
+  const res = new Array(num1.length + num2.length).fill(0);
+  num1 = num1.split("").reverse().join("");
+  num2 = num2.split("").reverse().join("");
+
+  for (let i1 = 0; i1 < num1.length; i1++) {
+    for (let i2 = 0; i2 < num2.length; i2++) {
+      const digit = parseInt(num1[i1]) * parseInt(num2[i2]);
+      res[i1 + i2] += digit;
+      res[i1 + i2 + 1] += Math.floor(res[i1 + i2] / 10);
+      res[i1 + i2] %= 10;
+    }
+  }
+
+  let result = "";
+  let i = res.length - 1;
+
+  while (i >= 0 && res[i] == 0) i--;
+  while (i >= 0) result += res[i--];
+
+  return result;
+}
+
+console.log(multiplyStrings("3", "4"));
+console.log(multiplyStrings("111", "222"));
 
 // thurs
 /* */
