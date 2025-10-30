@@ -113,17 +113,75 @@ function multiplyStrings(num1, num2) {
   return result;
 }
 
-console.log(multiplyStrings("3", "4"));
-console.log(multiplyStrings("111", "222"));
+// console.log(multiplyStrings("3", "4"));
+// console.log(multiplyStrings("111", "222"));
 
 // thurs
-/* */
+/* You are given a stream of points consisting of x-y coordinates on a 2-D plane. Points can be added and queried as follows:
+Add - new points can be added to the stream into a data structure. Duplicate points are allowed and should be treated as separate points.
+Query - Given a single query point, count the number of ways to choose three additional points from the data structure such that the three points and the query point form a square. The square must have all sides parallel to the x-axis and y-axis, i.e. no diagonal squares are allowed. Recall that a square must have four equal sides.
 
-// time: O()
+Implement the CountSquares class:
+CountSquares() Initializes the object.
+void add(int[] point) Adds a new point point = [x, y].
+int count(int[] point) Counts the number of ways to form valid squares with point point = [x, y] as described above.
 
-function ____() {}
+Example 1:
+Input:
+["CountSquares", "add", [[1, 1]], "add", [[2, 2]], "add", [[1, 2]], "count", [[2, 1]], "count", [[3, 3]], "add", [[2, 2]], "count", [[2, 1]]]
 
-// console.log()
+Output:
+[null, null, null, null, 1, 0, null, 2]
+
+Explanation:
+CountSquares countSquares = new CountSquares();
+countSquares.add([1, 1]);
+countSquares.add([2, 2]);
+countSquares.add([1, 2]);
+
+countSquares.count([2, 1]);   // return 1.
+countSquares.count([3, 3]);   // return 0.
+countSquares.add([2, 2]);     // Duplicate points are allowed.
+countSquares.count([2, 1]);   // return 2. */
+
+// time: O(1) for add(), O(n) for count(); space: O(n)
+
+class CountSquares {
+  constructor() {
+    this.points = new Map();
+    this.pts = [];
+  }
+
+  add(point) {
+    const p = point.join(",");
+    this.points.set(p, (this.points.get(p) || 0) + 1);
+    this.pts.push(point);
+  }
+
+  count(point) {
+    let res = 0;
+    const [px, py] = point;
+
+    for (const [x, y] of this.pts) {
+      if (Math.abs(py - y) !== Math.abs(px - x) || x === px || y === py)
+        continue;
+
+      res +=
+        (this.points.get(`${x},${py}`) || 0) *
+        (this.points.get(`${px},${y}`) || 0);
+    }
+
+    return res;
+  }
+}
+
+console.log(CountSquares.add([1, 1]));
+console.log(CountSquares.add([2, 2]));
+console.log(CountSquares.add([1, 2]));
+console.log(CountSquares.count([2, 1]));
+console.log(CountSquares.count([3, 3]));
+console.log(CountSquares.add([2, 2]));
+console.log(CountSquares.count([2, 1]));
 
 // fri
 /* */
