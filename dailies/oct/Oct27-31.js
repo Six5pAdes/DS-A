@@ -175,19 +175,37 @@ class CountSquares {
   }
 }
 
-console.log(CountSquares.add([1, 1]));
-console.log(CountSquares.add([2, 2]));
-console.log(CountSquares.add([1, 2]));
-console.log(CountSquares.count([2, 1]));
-console.log(CountSquares.count([3, 3]));
-console.log(CountSquares.add([2, 2]));
-console.log(CountSquares.count([2, 1]));
+// console.log(CountSquares.add([1, 1]));
+// console.log(CountSquares.add([2, 2]));
+// console.log(CountSquares.add([1, 2]));
+// console.log(CountSquares.count([2, 1]));
+// console.log(CountSquares.count([3, 3]));
+// console.log(CountSquares.add([2, 2]));
+// console.log(CountSquares.count([2, 1]));
 
 // fri
-/* */
+/* You are given a non-empty array of integers nums. Every integer appears twice except for one. Return the integer that appears only once.
+You must implement a solution with O(n) runtime complexity and use only O(1) extra space.
 
-// time: O()
+Example 1:
+Input: nums = [3,2,3]
+Output: 2
 
-function ____() {}
+Example 2:
+Input: nums = [7,6,6,7,8]
+Output: 8
+*/
 
-// console.log()
+// time: O(n), space: O(1)
+
+function singleNumber(nums) {
+  let res = 0;
+  for (const num of nums) {
+    res ^= num;
+  }
+
+  return res;
+}
+
+console.log(singleNumber([3, 2, 3]));
+console.log(singleNumber([7, 6, 6, 7, 8]));
