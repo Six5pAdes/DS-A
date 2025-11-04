@@ -23,17 +23,37 @@ function hammingWeight(n) {
   return res;
 }
 
-console.log(hammingWeight(0b00000000000000000000000000010111));
-console.log(hammingWeight(0b01111111111111111111111111111101));
+// console.log(hammingWeight(0b00000000000000000000000000010111));
+// console.log(hammingWeight(0b01111111111111111111111111111101));
 
 // tues
-/* */
+/* Given an integer n, count the number of 1's in the binary representation of every number in the range [0, n].
+Return an array output where output[i] is the number of 1's in the binary representation of i.
 
-// time: O()
+Example 1:
+Input: n = 4
+Output: [0,1,1,2,1]
 
-function ____() {}
+Explanation:
+0 --> 0
+1 --> 1
+2 --> 10
+3 --> 11
+4 --> 100
+*/
 
-// console.log()
+// time & space: O(n)
+
+function countBits(n) {
+  const res = new Array(n + 1).fill(0);
+  for (let i = 0; i <= n; i++) {
+    res[i] = res[i >> 1] + (i & 1);
+  }
+
+  return res;
+}
+
+console.log(countBits(4));
 
 // wed
 /* */
