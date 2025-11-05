@@ -53,16 +53,32 @@ function countBits(n) {
   return res;
 }
 
-console.log(countBits(4));
+// console.log(countBits(4));
 
 // wed
-/* */
+/* Given a 32-bit unsigned integer n, reverse the bits of the binary representation of n and return the result.
 
-// time: O()
+Example 1:
+Input: n = 00000000000000000000000000010101
+Output:    2818572288 (10101000000000000000000000000000)
 
-function ____() {}
+Explanation: Reversing 00000000000000000000000000010101, which represents the unsigned integer 21, gives us 10101000000000000000000000000000 which represents the unsigned integer 2818572288.
+*/
 
-// console.log()
+// time & space: O(1)
+
+function reverseBits(n) {
+  let res = 0;
+
+  for (let i = 0; i < 32; i++) {
+    const bit = (n >>> i) & 1;
+    res += bit << (31 - i);
+  }
+
+  return res >>> 0;
+}
+
+console.log(reverseBits(0o00000000000000000000000000010101));
 
 // thurs
 /* */
