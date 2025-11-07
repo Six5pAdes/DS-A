@@ -106,14 +106,72 @@ function missingNumber(nums) {
   return res;
 }
 
-console.log(missingNumber([1, 2, 3]));
-console.log(missingNumber([0, 2]));
+// console.log(missingNumber([1, 2, 3]));
+// console.log(missingNumber([0, 2]));
 
 // fri
-/* */
+/* Given two integers a and b, return the sum of the two integers without using the + and - operators.
 
-// time: O()
+Example 1:
+Input: a = 1, b = 1
+Output: 2
 
-function ____() {}
+Example 2:
+Input: a = 4, b = 7
+Output: 11
+*/
 
-// console.log()
+// time & space: O(1)
+
+function getSum(a, b) {
+  while (b !== 0) {
+    const carry = (a & b) << 1;
+    a ^= b;
+    b = carry;
+  }
+
+  return a;
+}
+
+// console.log(getSum(1, 1));
+// console.log(getSum(4, 7));
+
+/* You are given a signed 32-bit integer x. Return x after reversing each of its digits. After reversing, if x goes outside the signed 32-bit integer range [-2^31, 2^31 - 1], then return 0 instead.
+Solve the problem without using integers that are outside the signed 32-bit integer range.
+
+Example 1:
+Input: x = 1234
+Output: 4321
+
+Example 2:
+Input: x = -1234
+Output: -4321
+
+Example 3:
+Input: x = 1234236467
+Output: 0
+*/
+
+// time & space: O(1)
+
+function reverse(x) {
+  const min = (-2) ** 31;
+  const max = 2 ** 31 - 1;
+
+  let res = 0;
+  while (x !== 0) {
+    const digit = x % 10;
+    x = Math.trunc(x / 10);
+
+    if (res > max / 10 || (res === max / 10 && digit > max % 10)) return 0;
+    if (res < min / 10 || (res === min / 10 && digit < min % 10)) return 0;
+
+    res = res * 10 + digit;
+  }
+
+  return res;
+}
+
+console.log(reverse(1234));
+console.log(reverse(-1234));
+console.log(reverse(1234236467));
