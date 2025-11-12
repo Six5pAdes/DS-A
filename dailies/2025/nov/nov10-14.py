@@ -61,18 +61,37 @@ def removeElement(nums, val):
             k += 1
     return k
 
-print(removeElement([1,1,2,3,4], 1))
-print(removeElement([0,1,2,2,3,0,4,2], 2))
+# print(removeElement([1,1,2,3,4], 1))
+# print(removeElement([0,1,2,2,3,0,4,2], 2))
 
 # weds
-''''''
+'''Given an array nums of size n, return the majority element.
+The majority element is the element that appears more than ⌊n / 2⌋ times in the array. You may assume that the majority element always exists in the array.
 
-# time: O()
+Example 1:
+Input: nums = [5,5,1,1,1,5,5]
+Output: 5
 
-def ____():
-    return
+Example 2:
+Input: nums = [2,2,2]
+Output: 2
+'''
 
-# print()
+# time & space: O(n)
+
+def majority(nums):
+    res = count = 0
+
+    for num in nums:
+        if count == 0:
+            res = num
+
+        count += (1 if num == res else -1)
+
+    return res
+
+print(majority([5,5,1,1,1,5,5]))
+print(majority([2,2,2]))
 
 # thurs
 ''''''
