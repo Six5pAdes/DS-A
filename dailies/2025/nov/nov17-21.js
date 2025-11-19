@@ -11,7 +11,7 @@ Input: nums = [5,10,2,1,3]
 Output: [1,2,3,5,10]
 */
 
-// time: O(n log(n))
+// time: O(n log(n)), space: O(n)
 
 class Solution {
   sortArray(nums) {
@@ -52,9 +52,9 @@ class Solution {
 
 // tues
 /* You are given an array nums consisting of n elements where each element is an integer representing a color:
-0 represents red
-1 represents white
-2 represents blue
+  0 represents red
+  1 represents white
+  2 represents blue
 
 Your task is to sort the array in-place such that elements of the same color are grouped together and arranged in the order: red (0), white (1), and then blue (2).
 You must not use any built-in sorting functions to solve this problem.
@@ -93,17 +93,71 @@ function sortColors(nums) {
   return nums;
 }
 
-console.log(sortColors([1, 0, 1, 2]));
-console.log(sortColors([2, 1, 0]));
+// console.log(sortColors([1, 0, 1, 2]));
+// console.log(sortColors([2, 1, 0]));
 
 // weds
-/* */
+/* You are given a 2D matrix matrix, handle multiple queries of the following type:
+Calculate the sum of the elements of matrix inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
 
-// time: O()
+Implement the NumMatrix class:
+NumMatrix(int[][] matrix) Initializes the object with the integer matrix matrix.
+int sumRegion(int row1, int col1, int row2, int col2) Returns the sum of the elements of matrix inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
+You must design an algorithm where sumRegion works on O(1) time complexity.
 
-function ____() {}
+Example 1:
+Input: ["NumMatrix", "sumRegion", "sumRegion", "sumRegion"]
+[[[[3, 0, 1, 4, 2], [5, 6, 3, 2, 1], [1, 2, 0, 1, 5], [4, 1, 0, 1, 7], [1, 0, 3, 0, 5]]], [2, 1, 4, 3], [1, 1, 2, 2], [1, 2, 2, 4]]
+Output: [null, 8, 11, 12]
 
-// console.log();
+Explanation:
+NumMatrix numMatrix = new NumMatrix([[3, 0, 1, 4, 2], [5, 6, 3, 2, 1], [1, 2, 0, 1, 5], [4, 1, 0, 1, 7], [1, 0, 3, 0, 5]]);
+numMatrix.sumRegion(2, 1, 4, 3); // return 8 (i.e sum of the red rectangle)
+numMatrix.sumRegion(1, 1, 2, 2); // return 11 (i.e sum of the green rectangle)
+numMatrix.sumRegion(1, 2, 2, 4); // return 12 (i.e sum of the blue rectangle)
+*/
+
+// time: O(n), space: O(m * n)
+
+class NumMatrix {
+  constructor(matrix) {
+    this.prefixSum = Array.from({ length: matrix.length }, () =>
+      Array(matrix[0].length).fill(0)
+    );
+
+    for (let r = 0; r < matrix.length; r++) {
+      this.prefixSum[r][0] = matrix[r][0];
+      for (let c = 1; c < matrix[0].length; c++) {
+        this.prefixSum[r][c] = this.prefixSum[r][c - 1] + matrix[r][c];
+      }
+    }
+  }
+
+  sumRegion(row1, col1, row2, col2) {
+    let res = 0;
+    for (let r = row1; r <= row2; r++) {
+      if (col1 > 0) {
+        res += this.prefixSum[r][col2] - this.prefixSum[r][col1 - 1];
+      } else {
+        res += this.prefixSum[r][col2];
+      }
+    }
+
+    return res;
+  }
+}
+
+const demoMatrix = [
+  [3, 0, 1, 4, 2],
+  [5, 6, 3, 2, 1],
+  [1, 2, 0, 1, 5],
+  [4, 1, 0, 1, 7],
+  [1, 0, 3, 0, 5],
+];
+const numMatrix = new NumMatrix(demoMatrix);
+console.log(numMatrix.sumRegion(2, 1, 4, 3)); // 8 (red rectangle)
+console.log(numMatrix.sumRegion(1, 1, 2, 2)); // 11 (green rectangle)
+console.log(numMatrix.sumRegion(1, 2, 2, 4)); // 12 (blue rectangle)
 
 // thurs
 /* */
