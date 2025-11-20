@@ -147,26 +147,46 @@ class NumMatrix {
   }
 }
 
-const demoMatrix = [
-  [3, 0, 1, 4, 2],
-  [5, 6, 3, 2, 1],
-  [1, 2, 0, 1, 5],
-  [4, 1, 0, 1, 7],
-  [1, 0, 3, 0, 5],
-];
-const numMatrix = new NumMatrix(demoMatrix);
-console.log(numMatrix.sumRegion(2, 1, 4, 3)); // 8 (red rectangle)
-console.log(numMatrix.sumRegion(1, 1, 2, 2)); // 11 (green rectangle)
-console.log(numMatrix.sumRegion(1, 2, 2, 4)); // 12 (blue rectangle)
+// const demoMatrix = [
+//   [3, 0, 1, 4, 2],
+//   [5, 6, 3, 2, 1],
+//   [1, 2, 0, 1, 5],
+//   [4, 1, 0, 1, 7],
+//   [1, 0, 3, 0, 5],
+// ];
+// const numMatrix = new NumMatrix(demoMatrix);
+// console.log(numMatrix.sumRegion(2, 1, 4, 3)); // 8 (red rectangle)
+// console.log(numMatrix.sumRegion(1, 1, 2, 2)); // 11 (green rectangle)
+// console.log(numMatrix.sumRegion(1, 2, 2, 4)); // 12 (blue rectangle)
 
 // thurs
-/* */
+/* You are given an integer array nums of length n. Create an array ans of length 2n where ans[i] == nums[i] and ans[i + n] == nums[i] for 0 <= i < n (0-indexed).
+Specifically, ans is the concatenation of two nums arrays.
+Return the array ans.
 
-// time: O()
+Example 1:
+Input: nums = [1,4,1,2]
+Output: [1,4,1,2,1,4,1,2]
 
-function ____() {}
+Example 2:
+Input: nums = [22,21,20,1]
+Output: [22,21,20,1,22,21,20,1]
+*/
 
-// console.log();
+// time & space: O(n)
+
+function concatArr(nums) {
+  let n = nums.length;
+  let ans = new Array(2 * n);
+  for (let i = 0; i < n; i++) {
+    ans[i] = ans[i + n] = nums[i];
+  }
+
+  return ans;
+}
+
+console.log(concatArr([1, 4, 1, 2]));
+console.log(concatArr([22, 21, 20, 1]));
 
 // fri
 /* */
